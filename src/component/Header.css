@@ -1,0 +1,10 @@
+ul{
+    list-style-type: none;
+    color: rgb(183, 182, 182);
+}
+.head ul li{
+    color: rgb(154, 154, 154);
+}
+.headui ul :hover{
+    color: blue;
+}
