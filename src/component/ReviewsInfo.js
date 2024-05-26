@@ -3,7 +3,6 @@ import ReviwesCard from './ReviwesCard';
 import PaginationP from './PaginationP.js';
 import { ProductContext } from "../context/ProductContext.js";
 import axios from 'axios';
-
 const ReviewsInfo= () => {
   const {id} = useContext(ProductContext);
   const [posts, setPosts] = useState([]);
