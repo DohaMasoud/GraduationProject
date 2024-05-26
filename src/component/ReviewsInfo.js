@@ -1,6 +1,6 @@
 import React, { useState, useEffect ,useContext} from 'react';
 import ReviwesCard from './ReviwesCard';
-import Pagination from './Pagination.js';
+import PaginationP from './PaginationP.js';
 import { ProductContext } from "../context/ProductContext.js";
 import axios from 'axios';
 
@@ -46,7 +46,7 @@ const ReviewsInfo= () => {
         )})
      }
     </div>
-     <Pagination
+     <PaginationP
      postsPerPage={postsPerPage}
      totalPosts={posts.length}
      paginate={paginate}

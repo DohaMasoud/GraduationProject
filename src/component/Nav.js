@@ -8,7 +8,7 @@ function Nav() {
   return (
     <div className="nav-container1">
       <ul>
-        <NavLink to="/AllCategory" className="nav-link" activeClassName="active-link">
+        <NavLink to="/Categories" className="nav-link" activeClassName="active-link">
           <li><FaListUl /> All Category</li>
         </NavLink>
         <NavLink to="/Home" className="nav-link" activeClassName="active-link">

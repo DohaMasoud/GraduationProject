@@ -8,11 +8,14 @@ import Favorites from "./pages/Favorites.js";
 import Profile from "./pages/profile.js";
 import About from "./pages/About.js";
 import Setting from "./pages/Setting.js";
+import Product from "./pages/Product.js";
 import Home from "./pages/Home.js";
 import { Route, Routes } from "react-router-dom";
-import Product from "./pages/Product.js"
-import AllCategory from "./pages/AllCategory.js"
+import Categories from './pages/Categories.js';
 import ProductAnalysis from "./pages/ProductAnalysis.js"
+import Profiledata from './component/Profiledata.js';
+import Resetpassdata from './component/Resetpassdata.js';
+
 function App() {
   const [token, setToken] = useState("");
   return (
@@ -29,10 +32,11 @@ function App() {
           <Route path="/About" element={<About />}></Route>
           <Route path="/Setting" element={<Setting />}></Route>
           <Route path="/Profile" element={<Profile />}></Route>
-          <Route path='/Product' element={<Product/>}></Route>
-          <Route path='/AllCategory' element={<AllCategory/>}></Route>
+          <Route path="/Product" element={<Product/>}></Route>
           <Route path='/ProductAnalysis' element={<ProductAnalysis/>}></Route>
-        </Routes>
+          <Route path='/Categories' element={<Categories/>}></Route>
+          <Route path='/Profiledata' element={<Profiledata/>}></Route>
+          <Route path='/Resetpassdata' element={<Resetpassdata />}></Route></Routes>
       ) : (
         <Routes>
           <Route path="/" element={<SignIn setToken={setToken} />}></Route>
@@ -48,9 +52,11 @@ function App() {
           <Route path="/About" element={<About />}></Route>
           <Route path="/Setting" element={<Setting />}></Route>
           <Route path="/Profile" element={<Profile />}></Route>
-          <Route path='/Product' element={<Product/>}></Route>
-          <Route path='/AllCategory' element={<AllCategory/>}></Route>
           <Route path='/ProductAnalysis' element={<ProductAnalysis/>}></Route>
+          <Route path="/Product" element={<Product/>}></Route>
+          <Route path='/Categories' element={<Categories/>}></Route>
+          <Route path='/Profiledata' element={<Profiledata/>}></Route>
+          <Route path='/Resetpassdata' element={<Resetpassdata />}></Route>
         </Routes>
       )}
     </>
