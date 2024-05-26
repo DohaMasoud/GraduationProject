@@ -7,7 +7,7 @@ import { FaInstagram } from "react-icons/fa";
 console.log(Team);
 function Teamcart() {
     return(
-  Team.map((data)=>{
+      Team.map((data)=>{
     return (
         <>
         <Card className='team'>
@@ -18,13 +18,13 @@ function Teamcart() {
             {data[2]}
             </Card.Text>
             <p style={{fontSize:"10px"}}>                
-             <FaTwitter/>  <FaInstagram/>  <FaLinkedin/>
+            <FaTwitter/>  <FaInstagram/>  <FaLinkedin/>
             </p>
           </Card.Body>
         </Card>
         </>
       );
- }));
+  }));
   
 }
 

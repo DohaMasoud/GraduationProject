@@ -17,7 +17,6 @@ import Profiledata from './component/Profiledata.js';
 import Resetpassdata from './component/Resetpassdata.js';
 
 function App() {
-  const [token, setToken] = useState("");
   return (
     <>
       {token !== "" ? (

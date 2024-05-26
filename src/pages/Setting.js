@@ -78,3 +78,4 @@ const styles = {
 
 
 export default Setting;
+
