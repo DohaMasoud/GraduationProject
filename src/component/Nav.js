@@ -6,7 +6,7 @@ import './Nav.css'; // Import CSS file for additional styling
 
 function Nav() {
   return (
-    <div className="nav-container1">
+    <div className="nav-container1 fixed-top">
       <ul>
         <NavLink to="/Categories" className="nav-link" activeClassName="active-link">
           <li><FaListUl /> All Category</li>

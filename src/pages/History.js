@@ -10,7 +10,7 @@ function History() {
     <>
       <Header />
       <Nav />
-      <Container style={{ padding: "50px" }}>
+      <Container style={{ padding: "50px" , marginTop:"80px"}}>
         <Row className="product">
           <Col className="date col-11">Wed, 17 May | 08.30 AM</Col>
           <img className="img col" src="asset/iphone.jpg" alt=""></img>

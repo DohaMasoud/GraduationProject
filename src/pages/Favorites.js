@@ -6,153 +6,64 @@ import { FaHeart } from "react-icons/fa";
 import { IoIosStar } from "react-icons/io";
 import { FaAws } from "react-icons/fa";
 import "./favorites.css";
+import { useState, useEffect } from "react";
 
 function Favorites() {
+  const api_url = "https://fakestoreapi.com/products";
+  const [favorites, setFavorites] = useState([]);
+
+  useEffect(() => {
+    fetch(api_url)
+      .then((res) => res.json())
+      .then((data) => setFavorites(data));
+  }, []);
+
   return (
     <>
       <Header />
       <Nav />
-      <Container>
+      <Container style={{ marginTop: "125px" }}>
         <div className="ms-5">
           <h1 className="mt-5">favorites</h1>
           <p className="fav_p"> find your saved items</p>
         </div>
 
-        <Row className="product">
-          <img className="product_img" src="asset/iphone.jpg" alt=""></img>
-          <Col className="col-9 product_details">
-            <p className="pt-3">Canon Cmera EOS 2000, Black 10x zoom</p>
-            <span className="price">$998.00</span>
-            <span className="del_Price">
+        {favorites.map((fav) => {
+          return (
+            <Row className="product" key={fav.id}>
+              <img className="product_img" src={fav.image} alt=""></img>
+              <Col className="col-8 product_details">
+                <p className="pt-3">{fav.title}</p>
+                <span className="price">{fav.price} $</span>
+                {/* <span className="del_Price">
               <del>$1128.00</del>
-            </span>
-            <br />
-            <IoIosStar style={{ color: "#FF9017" }} />
-            <IoIosStar style={{ color: "#FF9017" }} />
-            <IoIosStar style={{ color: "#FF9017" }} />
-            <IoIosStar style={{ color: "#FF9017" }} />
-            <IoIosStar style={{ color: "#ddd" }} />
-            <span style={{ color: "#FF9017", marginLeft: "10px" }}>7.5</span>
-            <span className="dot">.</span>
-            <span style={{ color: "#8B96A5" }}>154 orders</span>
-            <span className="dot">.</span>
-            <span style={{ color: "#00B517" }}>Free Shipping</span>
-            <p style={{ color: "#8B96A5" }}>
-              lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua
-            </p>
-            <button className="view_details">View detials</button>
-          </Col>
-          <Col>
-            <button className="fav_btn">
-              <FaHeart className="heart" />
-            </button>
-            <br></br>
-            <FaAws className="AWS" />
-          </Col>
-        </Row>
-
-        <Row className="product">
-          <img className="product_img" src="asset/iphone.jpg" alt=""></img>
-          <Col className="col-9 product_details">
-            <p className="pt-3">Canon Cmera EOS 2000, Black 10x zoom</p>
-            <span className="price">$998.00</span>
-            <span className="del_Price">
-              <del>$1128.00</del>
-            </span>
-            <br />
-            <IoIosStar style={{ color: "#FF9017" }} />
-            <IoIosStar style={{ color: "#FF9017" }} />
-            <IoIosStar style={{ color: "#FF9017" }} />
-            <IoIosStar style={{ color: "#FF9017" }} />
-            <IoIosStar style={{ color: "#ddd" }} />
-            <span style={{ color: "#FF9017", marginLeft: "10px" }}>7.5</span>
-            <span className="dot">.</span>
-            <span style={{ color: "#8B96A5" }}>154 orders</span>
-            <span className="dot">.</span>
-            <span style={{ color: "#00B517" }}>Free Shipping</span>
-            <p style={{ color: "#8B96A5" }}>
-              lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua
-            </p>
-            <button className="view_details">View detials</button>
-          </Col>
-          <Col>
-            <button className="fav_btn">
-              <FaHeart className="heart" />
-            </button>
-            <br></br>
-            <FaAws className="AWS" />
-          </Col>
-        </Row>
-
-        <Row className="product">
-          <img className="product_img" src="asset/iphone.jpg" alt=""></img>
-          <Col className="col-9 product_details">
-            <p className="pt-3">Canon Cmera EOS 2000, Black 10x zoom</p>
-            <span className="price">$998.00</span>
-            <span className="del_Price">
-              <del>$1128.00</del>
-            </span>
-            <br />
-            <IoIosStar style={{ color: "#FF9017" }} />
-            <IoIosStar style={{ color: "#FF9017" }} />
-            <IoIosStar style={{ color: "#FF9017" }} />
-            <IoIosStar style={{ color: "#FF9017" }} />
-            <IoIosStar style={{ color: "#ddd" }} />
-            <span style={{ color: "#FF9017", marginLeft: "10px" }}>7.5</span>
-            <span className="dot">.</span>
-            <span style={{ color: "#8B96A5" }}>154 orders</span>
-            <span className="dot">.</span>
-            <span style={{ color: "#00B517" }}>Free Shipping</span>
-            <p style={{ color: "#8B96A5" }}>
-              lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua
-            </p>
-            <button className="view_details">View detials</button>
-          </Col>
-          <Col>
-            <button className="fav_btn">
-              <FaHeart className="heart" />
-            </button>
-            <br></br>
-            <FaAws className="AWS" />
-          </Col>
-        </Row>
-
-        <Row className="product">
-          <img className="product_img" src="asset/iphone.jpg" alt=""></img>
-          <Col className="col-9 product_details">
-            <p className="pt-3">Canon Cmera EOS 2000, Black 10x zoom</p>
-            <span className="price">$998.00</span>
-            <span className="del_Price">
-              <del>$1128.00</del>
-            </span>
-            <br />
-            <IoIosStar style={{ color: "#FF9017" }} />
-            <IoIosStar style={{ color: "#FF9017" }} />
-            <IoIosStar style={{ color: "#FF9017" }} />
-            <IoIosStar style={{ color: "#FF9017" }} />
-            <IoIosStar style={{ color: "#ddd" }} />
-            <span style={{ color: "#FF9017", marginLeft: "10px" }}>7.5</span>
-            <span className="dot">.</span>
-            <span style={{ color: "#8B96A5" }}>154 orders</span>
-            <span className="dot">.</span>
-            <span style={{ color: "#00B517" }}>Free Shipping</span>
-            <p style={{ color: "#8B96A5" }}>
-              lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua
-            </p>
-            <button className="view_details">View detials</button>
-          </Col>
-          <Col>
-            <button className="fav_btn">
-              <FaHeart  />
-            </button>
-            <br></br>
-            <FaAws/>
-          </Col>
-        </Row>
+            </span> */}
+                <br />
+                <IoIosStar style={{ color: "#FF9017" }} />
+                <IoIosStar style={{ color: "#FF9017" }} />
+                <IoIosStar style={{ color: "#FF9017" }} />
+                <IoIosStar style={{ color: "#FF9017" }} />
+                <IoIosStar style={{ color: "#ddd" }} />
+                <span style={{ color: "#FF9017", marginLeft: "10px" }}>
+                  {fav.rating.rate}
+                </span>
+                <span className="dot">.</span>
+                <span style={{ color: "#8B96A5" }}>154 orders</span>
+                <span className="dot">.</span>
+                <span style={{ color: "#00B517" }}>Free Shipping</span>
+                <p style={{ color: "#8B96A5" }}>{fav.description}</p>
+                <button className="view_details">View detials</button>
+              </Col>
+              <Col>
+                <button className="fav_btn">
+                  <FaHeart className="heart" />
+                </button>
+                <br></br>
+                <FaAws className="AWS" />
+              </Col>
+            </Row>
+          );
+        })}
       </Container>
       <Footer />
     </>

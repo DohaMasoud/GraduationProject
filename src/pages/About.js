@@ -9,7 +9,7 @@ function About(){
         <>
       <Header/>
     <Nav/>
-        <div className="c4" style={{display:"flex",margin:"15px",backgroundColor:'white'}}  >
+        <div className="c4" style={{display:"flex",margin:"15px",backgroundColor:'white',marginTop:"120px"}}  >
         <ul style={{listStyle:"none"}}>
         <li><h3>Impact of the project</h3></li>
         <li>Our project has a significant impact by empowering consumers to make informed decisions,

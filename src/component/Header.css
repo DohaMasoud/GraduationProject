@@ -1,4 +1,4 @@
-ul{
+/* ul{
     list-style-type: none;
     color: rgb(183, 182, 182);
 }
@@ -7,4 +7,15 @@ ul{
 }
 .headui ul :hover{
     color: blue;
+} */
+
+.nav-link{
+    text-align: center;
+    color: rgb(154, 154, 154);
 }
+
+.nav_link:hover,
+.nav_link.active
+  {
+    color: blue;
+  }

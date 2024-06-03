@@ -19,7 +19,7 @@ const ProductInfo = () => {
     }
   };
   return (
-    <div>
+    <div style={{marginTop:"130px"}}>
       {productData && (
          <ProductCard
          key={productData.id}

@@ -15,7 +15,7 @@ function Setting() {
         <>
             <Header />
             <Nav />
-            <div className="container-fluid">
+            <div className="container-fluid" >
                 <div className="row" style={styles.row}>
                     <div className="col-lg-2 col-md-3 col-sm-4 col-12" style={styles.sidebar}>
                         <div>
@@ -55,13 +55,13 @@ function Setting() {
 
 const styles = {
     row: {
-        minHeight: "1000px",
+        minHeight: "1000px"
     },
     sidebar: {
         background: "white",
         padding: "10px ",
         overflowY: "auto",
-
+        marginTop: "100px",
         height: "100vh",
     },
     link: {

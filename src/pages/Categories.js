@@ -91,6 +91,7 @@ const styles = {
         gridTemplateColumns: "20% 80%",
         gap: "10px",
         padding: "20px",
+        marginTop: "95px",
     },
     sidebar: {
         backgroundColor: "white",
