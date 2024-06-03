@@ -18,6 +18,23 @@ function Favorites() {
       .then((data) => setFavorites(data));
   }, []);
 
+  const Star = ({ filled }) => {
+    return (
+      <span style={{ color: filled ? "#FF9017" : "#ddd" }}>
+        <IoIosStar />
+      </span>
+    );
+  };
+
+  const Rating = ({ rating }) => {
+    const filledStars = Math.round(rating);
+    const stars = Array.from({ length: 5 }, (_, index) => (
+      <Star key={index} filled={index < filledStars} />
+    ));
+
+    return <i>{stars}</i>;
+  };
+
   return (
     <>
       <Header />
@@ -39,11 +56,7 @@ function Favorites() {
               <del>$1128.00</del>
             </span> */}
                 <br />
-                <IoIosStar style={{ color: "#FF9017" }} />
-                <IoIosStar style={{ color: "#FF9017" }} />
-                <IoIosStar style={{ color: "#FF9017" }} />
-                <IoIosStar style={{ color: "#FF9017" }} />
-                <IoIosStar style={{ color: "#ddd" }} />
+                <Rating rating={fav.rating.rate} />
                 <span style={{ color: "#FF9017", marginLeft: "10px" }}>
                   {fav.rating.rate}
                 </span>
