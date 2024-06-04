@@ -3,7 +3,7 @@ import Nav from '../component/Nav.js';
 import Header from '../component/Header.js';
 import Footer from '../component/Footer.js';
 import { Link } from 'react-router-dom';
-import Categorydata from "../component/Categorydata.js";
+import Categorydata from "../component/categorydata.js";
 import Pagination from "../component/Pagination.js";
 import axios from 'axios';
 
