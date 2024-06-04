@@ -3,7 +3,7 @@ import Nav from '../component/Nav.js';
 import Header from '../component/Header.js';
 import Footer from '../component/Footer.js';
 import { Link } from 'react-router-dom';
-import Categorydata from "../component/categorydata.js";
+import Categorydata from "../component/Categorydata.js";
 import Pagination from "../component/Pagination.js";
 import axios from 'axios';
 
@@ -41,8 +41,10 @@ function Categories() {
 
     return (
         <>
-            <Header />
-            <Nav />
+            <div className="fixed-top">
+                <Header/>
+                <Nav/>
+                </div>
             <div style={styles.container}>
                 <div style={styles.sidebar}>
                     <ul className="list-unstyled">
@@ -91,7 +93,7 @@ const styles = {
         gridTemplateColumns: "20% 80%",
         gap: "10px",
         padding: "20px",
-        marginTop: "95px",
+        marginTop: "130px",
     },
     sidebar: {
         backgroundColor: "white",

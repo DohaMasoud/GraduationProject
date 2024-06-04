@@ -12,8 +12,10 @@ import "./home.css";
 function Home() {
   return (
     <>
-      <Header />
-      <Nav />
+      <div className="fixed-top">
+     <Header/>
+       <Nav/>
+     </div>
       <Container style={{marginTop:"140px"}}>
         <Row className="offers">
           <Col className="offer-col">

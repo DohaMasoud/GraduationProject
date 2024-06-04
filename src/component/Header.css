@@ -1,21 +1,12 @@
-/* ul{
-    list-style-type: none;
-    color: rgb(183, 182, 182);
-}
-.head ul li{
-    color: rgb(154, 154, 154);
-}
-.headui ul :hover{
-    color: blue;
-} */
-
-.nav-link{
+.nav-link1{
     text-align: center;
     color: rgb(154, 154, 154);
+    text-decoration: none;
+    margin-left: 12px;
 }
 
-.nav_link:hover,
-.nav_link.active
+.nav-link1:hover,
+.nav-link1.active
   {
     color: blue;
   }

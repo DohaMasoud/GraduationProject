@@ -7,9 +7,11 @@ import Footer from '../component/Footer.js';
 function About(){
     return(
         <>
-      <Header/>
-    <Nav/>
-        <div className="c4" style={{display:"flex",margin:"15px",backgroundColor:'white',marginTop:"120px"}}  >
+     <div className="fixed-top">
+     <Header/>
+       <Nav/>
+     </div>
+        <div className="c4" style={{display:"flex",margin:"15px",backgroundColor:'white',marginTop:"150px"}}  >
         <ul style={{listStyle:"none"}}>
         <li><h3>Impact of the project</h3></li>
         <li>Our project has a significant impact by empowering consumers to make informed decisions,

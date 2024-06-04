@@ -13,8 +13,10 @@ import { Routes } from 'react-router-dom';
 function Setting() {
     return (
         <>
-            <Header />
-            <Nav />
+          <div className="fixed-top">
+     <Header/>
+       <Nav/>
+     </div>
             <div className="container-fluid" >
                 <div className="row" style={styles.row}>
                     <div className="col-lg-2 col-md-3 col-sm-4 col-12" style={styles.sidebar}>

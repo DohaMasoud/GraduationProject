@@ -7,8 +7,10 @@ import ProductAnalysisdata from "../component/ProductAnalysisdata.js";
 function ProductAnalysis(){
     return(
         <>
-        <Header/>
-        <Nav/>
+        <div className="fixed-top">
+     <Header/>
+       <Nav/>
+     </div>
         <ProductAnalysisdata/>
 
         <Footer/>

@@ -9,8 +9,10 @@ function Profile(){
     
     return(
         <>
-        <Header/>
-        <Nav/>
+        <div className="fixed-top">
+     <Header/>
+       <Nav/>
+     </div>
         <Profiledata/>
         <Footer/>
         </>

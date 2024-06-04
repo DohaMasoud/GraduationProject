@@ -9,8 +9,10 @@ import Likedinfo from "../component/Likedinfo.js";
 function Product(){
     return(
         <>
-        <Header/>
-        <Nav/>
+       <div className="fixed-top">
+     <Header/>
+       <Nav/>
+     </div>
         <ProductInfo />
         <h4 className="text-left" style={{marginLeft:"100px"}}>DETAILED REVIEWS <hr style={{width:"300px"}}/></h4>
        <div className="row text-center" style={{justifyContent:'space-around',alignItems: 'baseline',display:'grid',gridTemplateColumns: '40% 25%'}}>

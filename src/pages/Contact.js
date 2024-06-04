@@ -5,8 +5,10 @@ import Footer from '../component/Footer.js';
 function Contact() {
   return (
     <>
-    <Header/>
-    <Nav/>
+  <div className="fixed-top">
+     <Header/>
+       <Nav/>
+     </div>
     <div style={{backgroundColor:"white",border:"1px solid #0871FF",padding:"30px",width:"75%", margin:"50px auto",marginTop:"140px"}}>
         <h3 style={{color:"#0871FF", display:"flex", justifyContent:'center',fontSize:"30px"}}>Contact Us</h3>
         <div style={{display:"flex",justifyContent:"space-between"}}>

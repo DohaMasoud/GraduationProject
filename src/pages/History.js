@@ -8,8 +8,10 @@ import "./history.css";
 function History() {
   return (
     <>
-      <Header />
-      <Nav />
+     <div className="fixed-top">
+     <Header/>
+       <Nav/>
+     </div>
       <Container style={{ padding: "50px" , marginTop:"80px"}}>
         <Row className="product">
           <Col className="date col-11">Wed, 17 May | 08.30 AM</Col>

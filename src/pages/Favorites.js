@@ -1,16 +1,19 @@
 import Nav from "../component/Nav.js";
 import Header from "../component/Header.js";
 import Footer from "../component/Footer.js";
+import { NavLink } from "react-router-dom"
 import { Container, Row, Col } from "react-bootstrap";
 import { FaHeart } from "react-icons/fa";
 import { IoIosStar } from "react-icons/io";
 import { FaAws } from "react-icons/fa";
+import {ProductContext} from"../context/ProductContext"
 import "./favorites.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useContext} from "react";
 
 function Favorites() {
   const api_url = "https://fakestoreapi.com/products";
   const [favorites, setFavorites] = useState([]);
+  const {IdHandler}=useContext(ProductContext);
 
   useEffect(() => {
     fetch(api_url)
@@ -37,8 +40,10 @@ function Favorites() {
 
   return (
     <>
-      <Header />
-      <Nav />
+      <div className="fixed-top">
+     <Header/>
+       <Nav/>
+     </div>
       <Container style={{ marginTop: "125px" }}>
         <div className="ms-5">
           <h1 className="mt-5">favorites</h1>
@@ -65,7 +70,7 @@ function Favorites() {
                 <span className="dot">.</span>
                 <span style={{ color: "#00B517" }}>Free Shipping</span>
                 <p style={{ color: "#8B96A5" }}>{fav.description}</p>
-                <button className="view_details">View detials</button>
+                <NavLink to="/Product"  className="view_details1" type="button" onClick={()=>{IdHandler(fav.id)}}>View detials</NavLink>
               </Col>
               <Col>
                 <button className="fav_btn">

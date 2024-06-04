@@ -87,7 +87,7 @@ function Profiledata() {
     };
 
     return (
-        <div className="container" style={{ backgroundColor: "white", border: "1px solid #0871FF", padding: "30px", width: "100%", margin: "30px auto", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100vh" , marginTop:"140px"}}>
+        <div className="container" style={{ backgroundColor: "white", border: "1px solid #0871FF", padding: "30px", width: "100%", margin: "30px auto", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100vh" , marginTop:"150px"}}>
             <h3 style={{ color: "#0871FF", display: "flex", justifyContent: 'center', fontSize: "30px", margin: "10px", padding: "20px" }}>Edit Your Profile</h3>
 
 
