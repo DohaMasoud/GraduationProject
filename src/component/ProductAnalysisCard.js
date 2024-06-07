@@ -35,7 +35,7 @@ function ProductAnalysisCard({key2,desc,title,price,discount,rating,stock,brand,
       };
     return(
         <>
-        <div key={key2} className="row justify-content-center mb-3" style={{marginTop: '40px'}}>
+        <div key={key2} className="row justify-content-center mb-3" style={{marginTop: '150px'}}>
       <div className="col-md-12 col-xl-10">
         <div className="card shadow-0 border rounded-3">
           <div className="card-body">

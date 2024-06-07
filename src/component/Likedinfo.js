@@ -27,6 +27,7 @@ export default function Likedinfo(){
                 key2={product.id}
                 title={product.title}
                 price={product.price}
+                discount={product.discountPercentage}
                 img={product.images[0]}
                />
 

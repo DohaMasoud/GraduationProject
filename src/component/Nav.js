@@ -14,9 +14,6 @@ function Nav() {
         <NavLink to="/Home" className="nav-link" activeClassName="active-link">
           <li>Home</li>
         </NavLink>
-        <NavLink to="/Product" className="nav-link" activeClassName="active-link">
-          <li>Product</li>
-        </NavLink>
         <NavLink to="/History" className="nav-link" activeClassName="active-link">
           <li>History</li>
         </NavLink>
