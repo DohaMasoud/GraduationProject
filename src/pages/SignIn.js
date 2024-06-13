@@ -46,17 +46,18 @@ function SignIn({ setToken }) {
       formData.password.length > 6
     ) {
       setFormData({ ...initalFormData });
-      const response = await axios
-        .post("http://127.0.0.1:8000/api/auth/login", formData)
-        .then(() =>
-          Swal.fire({
-            text: "welcom my Dear ❤🌏",
-          })
-        )
-        .then(() => navigate("/Home"));
-      setToken(response.data.token);
-      console.log(response);
-      console.log(response.data.token);
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/auth/login",
+        formData
+      );
+      setToken(response.data.data.token);
+      console.log(response.data.data.token);
+
+      Swal.fire({
+        text: "welcom my Dear ❤🌏",
+      });
+      navigate("/Home");
+      
     } else {
       Swal.fire({
         text: "sorry enter valid data! Try Again 😃",

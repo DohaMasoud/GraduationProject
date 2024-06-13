@@ -1,22 +1,35 @@
 import Nav from "../component/Nav.js";
 import Header from "../component/Header.js";
 import Footer from "../component/Footer.js";
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-} from "react-bootstrap";
+import { Container, Row, Col, Card } from "react-bootstrap";
 import "./home.css";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 function Home() {
+  const api_url = "http://127.0.0.1:8000/api/recomended";
+  const [recomended, setRecomended] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = "5|78O5nAEGWzPhfsUcPCF1xYMPv9mqOdWh7MO07k3Fca5824d3";
+      const response = await axios.get(api_url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setRecomended(response.data.data.products);
+    };
+    fetchData();
+  }, []);
+
   return (
     <>
       <div className="fixed-top">
-     <Header/>
-       <Nav/>
-     </div>
-      <Container style={{marginTop:"140px"}}>
+        <Header />
+        <Nav />
+      </div>
+      <Container style={{ marginTop: "140px" }}>
         <Row className="offers">
           <Col className="offer-col">
             <h2 className="offer-title">Deals and offers</h2>
@@ -158,137 +171,27 @@ function Home() {
 
         <h1 style={{ marginTop: "70px" }}>Recommended items</h1>
         <Row>
-          <Card className="recommend-div" style={{ width: "244px" }}>
-            <Card.Img
-              className="recommend-img"
-              variant="top"
-              src="asset/iphone.jpg"
-            />
-            <Card.Body>
-              <Card.Title>$10.30</Card.Title>
-              <Card.Text className="recommend-title">
-                T-shirts with multiple colors, for men
-              </Card.Text>
-            </Card.Body>
-          </Card>
-
-          <Card className="recommend-div" style={{ width: "244px" }}>
-            <Card.Img
-              className="recommend-img"
-              variant="top"
-              src="asset/iphone.jpg"
-            />
-            <Card.Body>
-              <Card.Title>$10.30</Card.Title>
-              <Card.Text className="recommend-title">
-                T-shirts with multiple colors, for men
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card className="recommend-div" style={{ width: "244px" }}>
-            <Card.Img
-              className="recommend-img"
-              variant="top"
-              src="asset/iphone.jpg"
-            />
-            <Card.Body>
-              <Card.Title>$10.30</Card.Title>
-              <Card.Text className="recommend-title">
-                T-shirts with multiple colors, for men
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card className="recommend-div" style={{ width: "244px" }}>
-            <Card.Img
-              className="recommend-img"
-              variant="top"
-              src="asset/iphone.jpg"
-            />
-            <Card.Body>
-              <Card.Title>$10.30</Card.Title>
-              <Card.Text className="recommend-title">
-                T-shirts with multiple colors, for men
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card className="recommend-div" style={{ width: "244px" }}>
-            <Card.Img
-              className="recommend-img"
-              variant="top"
-              src="asset/iphone.jpg"
-            />
-            <Card.Body>
-              <Card.Title>$10.30</Card.Title>
-              <Card.Text className="recommend-title">
-                T-shirts with multiple colors, for men
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card className="recommend-div" style={{ width: "244px" }}>
-            <Card.Img
-              className="recommend-img"
-              variant="top"
-              src="asset/iphone.jpg"
-            />
-            <Card.Body>
-              <Card.Title>$10.30</Card.Title>
-              <Card.Text className="recommend-title">
-                T-shirts with multiple colors, for men
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card className="recommend-div" style={{ width: "244px" }}>
-            <Card.Img
-              className="recommend-img"
-              variant="top"
-              src="asset/iphone.jpg"
-            />
-            <Card.Body>
-              <Card.Title>$10.30</Card.Title>
-              <Card.Text className="recommend-title">
-                T-shirts with multiple colors, for men
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card className="recommend-div" style={{ width: "244px" }}>
-            <Card.Img
-              className="recommend-img"
-              variant="top"
-              src="asset/iphone.jpg"
-            />
-            <Card.Body>
-              <Card.Title>$10.30</Card.Title>
-              <Card.Text className="recommend-title">
-                T-shirts with multiple colors, for men
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card className="recommend-div" style={{ width: "244px" }}>
-            <Card.Img
-              className="recommend-img"
-              variant="top"
-              src="asset/iphone.jpg"
-            />
-            <Card.Body>
-              <Card.Title>$10.30</Card.Title>
-              <Card.Text className="recommend-title">
-                T-shirts with multiple colors, for men
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card className="recommend-div" style={{ width: "244px" }}>
-            <Card.Img
-              className="recommend-img"
-              variant="top"
-              src="asset/iphone.jpg"
-            />
-            <Card.Body>
-              <Card.Title>$10.30</Card.Title>
-              <Card.Text className="recommend-title">
-                T-shirts with multiple colors, for men
-              </Card.Text>
-            </Card.Body>
-          </Card>
+          {recomended.map((item) => {
+            return (
+              <Card
+                className="recommend-div"
+                style={{ width: "244px" }}
+                key={item.product.id}
+              >
+                <Card.Img
+                  className="recommend-img"
+                  variant="top"
+                  src={item.product.image}
+                />
+                <Card.Body>
+                  <Card.Title>${item.product.price}</Card.Title>
+                  <Card.Text className="recommend-title">
+                    {item.product.name}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            );
+          })}
         </Row>
       </Container>
       <Footer />

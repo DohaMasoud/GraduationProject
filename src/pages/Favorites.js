@@ -1,24 +1,32 @@
 import Nav from "../component/Nav.js";
 import Header from "../component/Header.js";
 import Footer from "../component/Footer.js";
-import { NavLink } from "react-router-dom"
+import { NavLink } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import { FaHeart } from "react-icons/fa";
 import { IoIosStar } from "react-icons/io";
 import { FaAws } from "react-icons/fa";
-import {ProductContext} from"../context/ProductContext"
+import { ProductContext } from "../context/ProductContext";
 import "./favorites.css";
-import { useState, useEffect,useContext} from "react";
+import { useState, useEffect, useContext } from "react";
+import axios from "axios";
 
 function Favorites() {
-  const api_url = "https://fakestoreapi.com/products";
+  const api_url = "http://127.0.0.1:8000/api/favourites";
   const [favorites, setFavorites] = useState([]);
-  const {IdHandler}=useContext(ProductContext);
+  const { IdHandler } = useContext(ProductContext);
 
   useEffect(() => {
-    fetch(api_url)
-      .then((res) => res.json())
-      .then((data) => setFavorites(data));
+    const fetchData = async () => {
+      const token = "5|78O5nAEGWzPhfsUcPCF1xYMPv9mqOdWh7MO07k3Fca5824d3";
+      const response = await axios.get(api_url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setFavorites(response.data.data.favourites.data);
+    };
+    fetchData();
   }, []);
 
   const Star = ({ filled }) => {
@@ -41,36 +49,50 @@ function Favorites() {
   return (
     <>
       <div className="fixed-top">
-     <Header/>
-       <Nav/>
-     </div>
+        <Header />
+        <Nav />
+      </div>
       <Container style={{ marginTop: "125px" }}>
         <div className="ms-5">
           <h1 className="mt-5">favorites</h1>
           <p className="fav_p"> find your saved items</p>
         </div>
 
-        {favorites.map((fav) => {
+        {favorites.map((item) => {
           return (
-            <Row className="product" key={fav.id}>
-              <img className="product_img" src={fav.image} alt=""></img>
+            <Row className="product" key={item.product.id}>
+              <img
+                className="product_img"
+                src={item.product.image}
+                alt=""
+              ></img>
               <Col className="col-8 product_details">
-                <p className="pt-3">{fav.title}</p>
-                <span className="price">{fav.price} $</span>
-                {/* <span className="del_Price">
-              <del>$1128.00</del>
-            </span> */}
+                <p className="pt-3">{item.product.name}</p>
+                <span className="price">{item.product.price} $</span>
                 <br />
-                <Rating rating={fav.rating.rate} />
+                <Rating rating={item.product.average_rating} />
                 <span style={{ color: "#FF9017", marginLeft: "10px" }}>
-                  {fav.rating.rate}
+                  {item.product.average_rating}
                 </span>
                 <span className="dot">.</span>
-                <span style={{ color: "#8B96A5" }}>154 orders</span>
+                <span style={{ color: "#8B96A5" }}>
+                  {item.product.total_reviews} orders
+                </span>
                 <span className="dot">.</span>
                 <span style={{ color: "#00B517" }}>Free Shipping</span>
-                <p style={{ color: "#8B96A5" }}>{fav.description}</p>
-                <NavLink to="/Product"  className="view_details1" type="button" onClick={()=>{IdHandler(fav.id)}}>View detials</NavLink>
+                <p style={{ color: "#8B96A5" }}>
+                  {item.product.short_description}
+                </p>
+                <NavLink
+                  to="/Product"
+                  className="view_details1"
+                  type="button"
+                  onClick={() => {
+                    IdHandler(item.product.id);
+                  }}
+                >
+                  View detials
+                </NavLink>
               </Col>
               <Col>
                 <button className="fav_btn">
