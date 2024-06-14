@@ -53,8 +53,8 @@
 }
 
 .cat-label {
-    background-image:image('asset/iphone.jpg');
-    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
     border-right: solid #ddd 1px;
 }
 
