@@ -1,22 +1,54 @@
 import Nav from "../component/Nav.js";
 import Header from "../component/Header.js";
 import Footer from "../component/Footer.js";
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-} from "react-bootstrap";
+import { Container, Row, Col, Card } from "react-bootstrap";
 import "./home.css";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 function Home() {
+  const recomended_api_url = "http://127.0.0.1:8000/api/recomended";
+  const brands_api_url = "http://127.0.0.1:8000/api/random-brand";
+  const brands_products_api_url =
+    "http://127.0.0.1:8000/api/brand-products?brand_id=2";
+
+  const [recomended, setRecomended] = useState([]);
+  const [brands, setBrands] = useState([]);
+  const [brandsProducts, setBrandsProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = "9|uMX7bNLu1Q1GyeP4iftuTXiXDrp0pVvJTEr822XB2f1d795f";
+      const response = await axios.get(recomended_api_url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const response1 = await axios.get(brands_api_url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const response2 = await axios.get(brands_products_api_url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setRecomended(response.data.data.products);
+      setBrands(response1.data.data.brands.data);
+      setBrandsProducts(response2.data.data.products.data);
+    };
+    fetchData();
+  }, []);
+
   return (
     <>
       <div className="fixed-top">
-     <Header/>
-       <Nav/>
-     </div>
-      <Container style={{marginTop:"140px"}}>
+        <Header />
+        <Nav />
+      </div>
+      <Container style={{ marginTop: "140px" }}>
         <Row className="offers">
           <Col className="offer-col">
             <h2 className="offer-title">Deals and offers</h2>
@@ -48,247 +80,51 @@ function Home() {
           </Col>
         </Row>
 
-        <Row className="cat">
-          <Col className="cat-label col-3">
-            <h2 className="cat-title">Consumer electronics and gadgets</h2>
-          </Col>
-          <Col>
-            <Row className="product-home">
-              <p className="product-name">Smart watches</p>
-              <p className="product-price">From USD 19</p>
-              <img className="img-product" src="asset/iphone.jpg" alt=""></img>
+        {brands.map((item) => {
+          return (
+            <Row className="cat">
+              <Col
+                className="cat-label col-3"
+                style={{ backgroundImage: `url(${item.icon})` }}
+              >
+                <h2 className="cat-title">{item.name}</h2>
+              </Col>
+              {brandsProducts.map((item) => {
+                return (
+                  <Col className="product-home">
+                    <p className="product-name">{item.name}</p>
+                    <p className="product-price">From USD {item.price}</p>
+                    <img className="img-product" src={item.image} alt=""></img>
+                  </Col>
+                );
+              })}
             </Row>
-            <Row className="product-home">
-              <p className="product-name">Smart watches</p>
-              <p className="product-price">From USD 19</p>
-              <img className="img-product" src="asset/iphone.jpg" alt=""></img>
-            </Row>
-          </Col>
-          <Col>
-            <Row className="product-home">
-              <p className="product-name">Smart watches</p>
-              <p className="product-price">From USD 19</p>
-              <img className="img-product" src="asset/iphone.jpg" alt=""></img>
-            </Row>
-            <Row className="product-home">
-              <p className="product-name">Smart watches</p>
-              <p className="product-price">From USD 19</p>
-              <img className="img-product" src="asset/iphone.jpg" alt=""></img>
-            </Row>
-          </Col>
-          <Col>
-            <Row className="product-home">
-              <p className="product-name">Smart watches</p>
-              <p className="product-price">From USD 19</p>
-              <img className="img-product" src="asset/iphone.jpg" alt=""></img>
-            </Row>
-            <Row className="product-home">
-              <p className="product-name">Smart watches</p>
-              <p className="product-price">From USD 19</p>
-              <img className="img-product" src="asset/iphone.jpg" alt=""></img>
-            </Row>
-          </Col>
-          <Col>
-            <Row className="product-home">
-              <p className="product-name">Smart watches</p>
-              <p className="product-price">From USD 19</p>
-              <img className="img-product" src="asset/iphone.jpg" alt=""></img>
-            </Row>
-            <Row className="product-home">
-              <p className="product-name">Smart watches</p>
-              <p className="product-price">From USD 19</p>
-              <img className="img-product" src="asset/iphone.jpg" alt=""></img>
-            </Row>
-          </Col>
-        </Row>
-
-        <Row className="cat">
-          <Col className="cat-label col-3">
-            <h2 className="cat-title">Consumer electronics and gadgets</h2>
-          </Col>
-          <Col>
-            <Row className="product-home">
-              <p className="product-name">Smart watches</p>
-              <p className="product-price">From USD 19</p>
-              <img className="img-product" src="asset/iphone.jpg" alt=""></img>
-            </Row>
-            <Row className="product-home">
-              <p className="product-name">Smart watches</p>
-              <p className="product-price">From USD 19</p>
-              <img className="img-product" src="asset/iphone.jpg" alt=""></img>
-            </Row>
-          </Col>
-          <Col>
-            <Row className="product-home">
-              <p className="product-name">Smart watches</p>
-              <p className="product-price">From USD 19</p>
-              <img className="img-product" src="asset/iphone.jpg" alt=""></img>
-            </Row>
-            <Row className="product-home">
-              <p className="product-name">Smart watches</p>
-              <p className="product-price">From USD 19</p>
-              <img className="img-product" src="asset/iphone.jpg" alt=""></img>
-            </Row>
-          </Col>
-          <Col>
-            <Row className="product-home">
-              <p className="product-name">Smart watches</p>
-              <p className="product-price">From USD 19</p>
-              <img className="img-product" src="asset/iphone.jpg" alt=""></img>
-            </Row>
-            <Row className="product-home">
-              <p className="product-name">Smart watches</p>
-              <p className="product-price">From USD 19</p>
-              <img className="img-product" src="asset/iphone.jpg" alt=""></img>
-            </Row>
-          </Col>
-          <Col>
-            <Row className="product-home">
-              <p className="product-name">Smart watches</p>
-              <p className="product-price">From USD 19</p>
-              <img className="img-product" src="asset/iphone.jpg" alt=""></img>
-            </Row>
-            <Row className="product-home">
-              <p className="product-name">Smart watches</p>
-              <p className="product-price">From USD 19</p>
-              <img className="img-product" src="asset/iphone.jpg" alt=""></img>
-            </Row>
-          </Col>
-        </Row>
+          );
+        })}
 
         <h1 style={{ marginTop: "70px" }}>Recommended items</h1>
         <Row>
-          <Card className="recommend-div" style={{ width: "244px" }}>
-            <Card.Img
-              className="recommend-img"
-              variant="top"
-              src="asset/iphone.jpg"
-            />
-            <Card.Body>
-              <Card.Title>$10.30</Card.Title>
-              <Card.Text className="recommend-title">
-                T-shirts with multiple colors, for men
-              </Card.Text>
-            </Card.Body>
-          </Card>
-
-          <Card className="recommend-div" style={{ width: "244px" }}>
-            <Card.Img
-              className="recommend-img"
-              variant="top"
-              src="asset/iphone.jpg"
-            />
-            <Card.Body>
-              <Card.Title>$10.30</Card.Title>
-              <Card.Text className="recommend-title">
-                T-shirts with multiple colors, for men
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card className="recommend-div" style={{ width: "244px" }}>
-            <Card.Img
-              className="recommend-img"
-              variant="top"
-              src="asset/iphone.jpg"
-            />
-            <Card.Body>
-              <Card.Title>$10.30</Card.Title>
-              <Card.Text className="recommend-title">
-                T-shirts with multiple colors, for men
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card className="recommend-div" style={{ width: "244px" }}>
-            <Card.Img
-              className="recommend-img"
-              variant="top"
-              src="asset/iphone.jpg"
-            />
-            <Card.Body>
-              <Card.Title>$10.30</Card.Title>
-              <Card.Text className="recommend-title">
-                T-shirts with multiple colors, for men
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card className="recommend-div" style={{ width: "244px" }}>
-            <Card.Img
-              className="recommend-img"
-              variant="top"
-              src="asset/iphone.jpg"
-            />
-            <Card.Body>
-              <Card.Title>$10.30</Card.Title>
-              <Card.Text className="recommend-title">
-                T-shirts with multiple colors, for men
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card className="recommend-div" style={{ width: "244px" }}>
-            <Card.Img
-              className="recommend-img"
-              variant="top"
-              src="asset/iphone.jpg"
-            />
-            <Card.Body>
-              <Card.Title>$10.30</Card.Title>
-              <Card.Text className="recommend-title">
-                T-shirts with multiple colors, for men
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card className="recommend-div" style={{ width: "244px" }}>
-            <Card.Img
-              className="recommend-img"
-              variant="top"
-              src="asset/iphone.jpg"
-            />
-            <Card.Body>
-              <Card.Title>$10.30</Card.Title>
-              <Card.Text className="recommend-title">
-                T-shirts with multiple colors, for men
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card className="recommend-div" style={{ width: "244px" }}>
-            <Card.Img
-              className="recommend-img"
-              variant="top"
-              src="asset/iphone.jpg"
-            />
-            <Card.Body>
-              <Card.Title>$10.30</Card.Title>
-              <Card.Text className="recommend-title">
-                T-shirts with multiple colors, for men
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card className="recommend-div" style={{ width: "244px" }}>
-            <Card.Img
-              className="recommend-img"
-              variant="top"
-              src="asset/iphone.jpg"
-            />
-            <Card.Body>
-              <Card.Title>$10.30</Card.Title>
-              <Card.Text className="recommend-title">
-                T-shirts with multiple colors, for men
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card className="recommend-div" style={{ width: "244px" }}>
-            <Card.Img
-              className="recommend-img"
-              variant="top"
-              src="asset/iphone.jpg"
-            />
-            <Card.Body>
-              <Card.Title>$10.30</Card.Title>
-              <Card.Text className="recommend-title">
-                T-shirts with multiple colors, for men
-              </Card.Text>
-            </Card.Body>
-          </Card>
+          {recomended.map((item) => {
+            return (
+              <Card
+                className="recommend-div"
+                style={{ width: "244px" }}
+                key={item.product.id}
+              >
+                <Card.Img
+                  className="recommend-img"
+                  variant="top"
+                  src={item.product.image}
+                />
+                <Card.Body>
+                  <Card.Title>${item.product.price}</Card.Title>
+                  <Card.Text className="recommend-title">
+                    {item.product.name}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            );
+          })}
         </Row>
       </Container>
       <Footer />

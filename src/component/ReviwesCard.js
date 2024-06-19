@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ReviwesCard = ({ Key2,name,email,body, loading }) => {
+const ReviwesCard = ({ Key2,name,email,sentiment,body, loading }) => {
   const Star = ({ filled }) => {
     return (
       <span style={{ color: filled ? 'gold' : 'lightgray' }}>
@@ -25,10 +25,10 @@ const ReviwesCard = ({ Key2,name,email,body, loading }) => {
     <ul className='list-group mb-4'>
        <div className="border rounded shadow p-3 mb-2 " style={{textAlign:"left",position:'relative'}} key={Key2}>
        <img src={imgs} style={{width: '34px',position: 'absolute',top:'-11px',left: '-9px',widows:'10px',borderRadius:'33px'}}/>
-        <span >{name}</span><br/>
+       <span>{name}</span> <span style={{color:"green",fontSize:"xx-small"}}>{sentiment > 0 ? 'Positive' :sentiment< 0 ? 'Negative' : 'Neutral'} </span><br/>  
         <Rating/> <span className="text-muted">4.89</span><br/>
-        <span>{email}</span>
-        <p style={{fontSize:"xx-small"}}>{body}</p>
+        <p style={{fontSize:"small"}}>{body}</p>
+        
        </div>
     </ul>
   );

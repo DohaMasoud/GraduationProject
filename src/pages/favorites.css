@@ -27,12 +27,6 @@
     padding-right: 10px;
 }
 
-.del_Price {
-    color: #8B96A5;
-    font-weight: bold;
-    font-size: 15px;
-}
-
 .dot {
     font-size: 50px;
     color: #ddd;
@@ -46,7 +40,6 @@
     text-decoration: none;
 
 }
-
 
 .heart {
     color: #599DFF;
