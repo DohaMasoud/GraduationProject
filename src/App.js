@@ -22,43 +22,43 @@ function App() {
     <>
       {token !== "" ? (
         <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/Home" element={<Home />}></Route>
-          <Route path="/History" element={<History />}></Route>
+          <Route path="/" element={<Home token={token} />}></Route>
+          <Route path="/Home" element={<Home token={token}/>}></Route>
+          <Route path="/History" element={<History token={token}/>}></Route>
           <Route path="/SignUp" element={<SignUp />}></Route>
           <Route
             path="/SignIn"
             element={<SignIn setToken={setToken} />}
           ></Route>
           <Route path="/Contact" element={<Contact />}></Route>
-          <Route path="/Favorites" element={<Favorites />}></Route>
+          <Route path="/Favorites" element={<Favorites token={token} />}></Route>
           <Route path="/About" element={<About />}></Route>
           <Route path="/Setting" element={<Setting />}></Route>
           <Route path="/Profile" element={<Profile />}></Route>
           <Route path="/Product" element={<Product />}></Route>
           <Route path="/ProductAnalysis" element={<ProductAnalysis />}></Route>
-          <Route path="/Categories" element={<Categories />}></Route>
+          <Route path="/Categories" element={<Categories token={token} />}></Route>
           <Route path="/Profiledata" element={<Profiledata />}></Route>
           <Route path="/Resetpassdata" element={<Resetpassdata />}></Route>
         </Routes>
       ) : (
         <Routes>
           <Route path="/" element={<SignIn setToken={setToken} />}></Route>
-          <Route path="/Home" element={<Home />}></Route>
-          <Route path="/History" element={<History />}></Route>
+          <Route path="/Home" element={<Home token={token}/>}></Route>
+          <Route path="/History" element={<History token={token}/>}></Route>
           <Route path="/SignUp" element={<SignUp />}></Route>
           <Route
             path="/SignIn"
             element={<SignIn setToken={setToken} />}
           ></Route>
           <Route path="/Contact" element={<Contact />}></Route>
-          <Route path="/Favorites" element={<Favorites />}></Route>
+          <Route path="/Favorites" element={<Favorites token={token}/>}></Route>
           <Route path="/About" element={<About />}></Route>
           <Route path="/Setting" element={<Setting />}></Route>
           <Route path="/Profile" element={<Profile />}></Route>
           <Route path="/ProductAnalysis" element={<ProductAnalysis />}></Route>
           <Route path="/Product" element={<Product />}></Route>
-          <Route path="/Categories" element={<Categories />}></Route>
+          <Route path="/Categories" element={<Categories token={token} />}></Route>
           <Route path="/Profiledata" element={<Profiledata />}></Route>
           <Route path="/Resetpassdata" element={<Resetpassdata />}></Route>
         </Routes>

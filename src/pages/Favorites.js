@@ -11,14 +11,14 @@ import "./favorites.css";
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 
-function Favorites() {
+function Favorites({token}) {
   const api_url = "http://127.0.0.1:8000/api/favourites";
-  const { IdHandler } = useContext(ProductContext);
   const [favorites, setFavorites] = useState([]);
+  const { IdHandler } = useContext(ProductContext);
 
   useEffect(() => {
     const fetchData = async () => {
-      const token = "9|uMX7bNLu1Q1GyeP4iftuTXiXDrp0pVvJTEr822XB2f1d795f";
+      // const token = "5|78O5nAEGWzPhfsUcPCF1xYMPv9mqOdWh7MO07k3Fca5824d3";
       const response = await axios.get(api_url, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -82,11 +82,11 @@ function Favorites() {
 
         {favorites.map((item) => {
           return (
-            <Row className="product" key={item.id}>
+            <Row className="product" key={item.product.id}>
               <img
                 className="product_img"
                 src={item.product.image}
-                alt={item.product.name}
+                alt=""
               ></img>
               <Col className="col-8 product_details">
                 <p className="pt-3">{item.product.name}</p>
@@ -103,7 +103,7 @@ function Favorites() {
                 <span className="dot">.</span>
                 <span style={{ color: "#00B517" }}>Free Shipping</span>
                 <p style={{ color: "#8B96A5" }}>
-                  {getTruncatedText(item.product.short_description, descriptionLimit)}
+                  {item.product.short_description}
                 </p>
                 <NavLink
                   to="/Product"
@@ -113,7 +113,7 @@ function Favorites() {
                     IdHandler(item.product.id);
                   }}
                 >
-                  View details
+                  View detials
                 </NavLink>
               </Col>
               <Col>
