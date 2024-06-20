@@ -3,10 +3,13 @@ import Header from "../component/Header.js";
 import Footer from "../component/Footer.js";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import "./home.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useContext } from "react";
+import {TokenContext} from"../context/TokenContext.js"
+
 import axios from "axios";
 
-function Home({ token }) {
+function Home() {
+  const{token}=useContext(TokenContext)
   const [recomended, setRecomended] = useState([]);
   const [brands, setBrands] = useState({});
   const [brandsProducts, setBrandsProducts] = useState([]);

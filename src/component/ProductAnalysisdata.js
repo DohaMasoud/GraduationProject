@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import ProductAnalysisCard from './ProductAnalysisCard';
 import { ProductContext } from '../context/ProductContext';
+import {TokenContext} from"../context/TokenContext"
+
 import axios from 'axios';
 
 const ProductAnalysisdata = () => {
+  const{token}=useContext(TokenContext)
   const [productData, setProductData] = useState(null);
   const [error, setError] = useState(null);
   const { id } = useContext(ProductContext);
@@ -12,7 +15,6 @@ const ProductAnalysisdata = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = "12|Np1zbZGbaOZNnLcR4HIdBVn3aE9i8QSsFHpjkAra6e40b604";
         const response = await axios.get(api_url, {
           headers: {
             Authorization: `Bearer ${token}`,

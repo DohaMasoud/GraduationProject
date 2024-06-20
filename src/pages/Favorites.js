@@ -8,17 +8,18 @@ import { IoIosStar } from "react-icons/io";
 import { FaAws } from "react-icons/fa";
 import { ProductContext } from "../context/ProductContext";
 import "./favorites.css";
+import { TokenContext } from "../context/TokenContext.js";
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 
-function Favorites({token}) {
+function Favorites() {
+  const { token } = useContext(TokenContext);
   const api_url = "http://127.0.0.1:8000/api/favourites";
   const [favorites, setFavorites] = useState([]);
   const { IdHandler } = useContext(ProductContext);
 
   useEffect(() => {
     const fetchData = async () => {
-      // const token = "5|78O5nAEGWzPhfsUcPCF1xYMPv9mqOdWh7MO07k3Fca5824d3";
       const response = await axios.get(api_url, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -27,18 +28,17 @@ function Favorites({token}) {
       setFavorites(response.data.data.favourites.data);
     };
     fetchData();
-  }, []);
+  }, [token]);
 
   const handleRemoveFavorite = async (favoriteId) => {
     try {
-      const token = "9|uMX7bNLu1Q1GyeP4iftuTXiXDrp0pVvJTEr822XB2f1d795f";
       const deleteUrl = `http://127.0.0.1:8000/api/favourites/${favoriteId}`;
       await axios.delete(deleteUrl, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setFavorites(favorites.filter(item => item.id !== favoriteId));
+      setFavorites(favorites.filter((item) => item.id !== favoriteId));
     } catch (error) {
       console.error('Error removing product from favorites:', error);
     }
@@ -60,13 +60,6 @@ function Favorites({token}) {
 
     return <i>{stars}</i>;
   };
-
-  const getTruncatedText = (text, limit) => {
-    if (text.length <= limit) return text;
-    return text.substring(0, limit) + '...';
-  };
-
-  const descriptionLimit = 100; // Set a character limit for the truncated text
 
   return (
     <>
@@ -103,8 +96,7 @@ function Favorites({token}) {
                 <span className="dot">.</span>
                 <span style={{ color: "#00B517" }}>Free Shipping</span>
                 <p style={{ color: "#8B96A5" }}>
-                  {item.product.short_description}
-                </p>
+                {item.product.short_description.slice(0, 250)}                </p>
                 <NavLink
                   to="/Product"
                   className="view_details1"
@@ -113,7 +105,7 @@ function Favorites({token}) {
                     IdHandler(item.product.id);
                   }}
                 >
-                  View detials
+                  View details
                 </NavLink>
               </Col>
               <Col>

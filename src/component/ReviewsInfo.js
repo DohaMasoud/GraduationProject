@@ -3,6 +3,7 @@ import ReviwesCard from './ReviwesCard';
 import PaginationP from './PaginationP.js';
 import { ProductContext } from "../context/ProductContext.js";
 import axios from 'axios';
+import {TokenContext} from"../context/TokenContext.js"
 
 const ReviewsInfo  = () => {
   const { id } = useContext(ProductContext);
@@ -12,12 +13,12 @@ const ReviewsInfo  = () => {
   const [postsPerPage] = useState(3);
   const [error, setError] = useState(null);
   const api_url = `http://127.0.0.1:8000/api/product/${id}`;
+  const{token}=useContext(TokenContext)
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const token = "12|Np1zbZGbaOZNnLcR4HIdBVn3aE9i8QSsFHpjkAra6e40b604";
         const response = await axios.get(api_url, {
           headers: {
             Authorization: `Bearer ${token}`,

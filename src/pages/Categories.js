@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import Nav from "../component/Nav.js";
 import Header from "../component/Header.js";
 import Footer from "../component/Footer.js";
 import { Link } from "react-router-dom";
 import Categorydata from "../component/categorydata.js";
 import Pagination from "../component/Pagination.js";
+import {TokenContext} from"../context/TokenContext.js"
+
 import axios from "axios";
 
-function Categories({ token }) {
+function Categories() {
+  const{token}=useContext(TokenContext)
+
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [brands, setBrands] = useState([]);

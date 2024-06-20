@@ -4,10 +4,14 @@ import Footer from "../component/Footer.js";
 import { Row, Col, Container } from "react-bootstrap";
 import { IoIosStar } from "react-icons/io";
 import "./history.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect ,useContext} from "react";
+import {TokenContext} from"../context/TokenContext.js"
+
 import axios from "axios";
 
-function History({token}) {
+function History() {
+  const{token}=useContext(TokenContext)
+
   const api_url = "http://127.0.0.1:8000/api/recent";
   const [recent, setRecent] = useState([]);
 

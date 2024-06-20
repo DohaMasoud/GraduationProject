@@ -1,12 +1,14 @@
 import React, { useContext } from "react";
 import { FaHeart } from "react-icons/fa";
 import {ProductContext} from"../context/ProductContext";
+import {TokenContext} from"../context/TokenContext.js"
+
 import axios from 'axios';
 function ProductAnalysisCard({key2,title,price,rating,brand,total_reviews,img}){
+  const{token}=useContext(TokenContext)
   const {IdHandler}=useContext(ProductContext);
   const handleAddToFavorites = async () => {
     try {
-      const token = "12|Np1zbZGbaOZNnLcR4HIdBVn3aE9i8QSsFHpjkAra6e40b604"; // Replace with your actual token
       const favorites_url = 'http://127.0.0.1:8000/api/favourites';
       const response = await axios.post(favorites_url, { product_id: key2 }, {
         headers: {
