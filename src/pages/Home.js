@@ -6,41 +6,54 @@ import "./home.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-function Home() {
+function Home({ token }) {
+  const [recomended, setRecomended] = useState([]);
+  const [brands, setBrands] = useState({});
+  const [brandsProducts, setBrandsProducts] = useState([]);
+
   const recomended_api_url = "http://127.0.0.1:8000/api/recomended";
   const brands_api_url = "http://127.0.0.1:8000/api/random-brand";
   const brands_products_api_url =
-    "http://127.0.0.1:8000/api/brand-products?brand_id=2";
+    "http://127.0.0.1:8000/api/brand-products?brand_id=";
 
-  const [recomended, setRecomended] = useState([]);
-  const [brands, setBrands] = useState([]);
-  const [brandsProducts, setBrandsProducts] = useState([]);
+  const fetchRecommended = async () => {
+    // const token = "5|78O5nAEGWzPhfsUcPCF1xYMPv9mqOdWh7MO07k3Fca5824d3";
+    const response = await axios.get(recomended_api_url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    setRecomended(response.data.data.products);
+  };
+
+  const fetchBrands = async () => {
+    const response1 = await axios.get(brands_api_url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    setBrands(response1.data.data.brands.data[0]);
+  };
+
+  const fetchBrandProducts = async (id) => {
+    const response2 = await axios.get(`${brands_products_api_url}${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    setBrandsProducts(response2.data.data.products.data);
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const token = "5|78O5nAEGWzPhfsUcPCF1xYMPv9mqOdWh7MO07k3Fca5824d3";
-      const response = await axios.get(recomended_api_url, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const response1 = await axios.get(brands_api_url, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const response2 = await axios.get(brands_products_api_url, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      setRecomended(response.data.data.products);
-      setBrands(response1.data.data.brands.data);
-      setBrandsProducts(response2.data.data.products.data);
-    };
-    fetchData();
+    fetchRecommended();
+    fetchBrands();
   }, []);
+
+  useEffect(() => {
+    if (brands.id) {
+      fetchBrandProducts(brands.id);
+    }
+  }, [brands]);
 
   return (
     <>
@@ -79,29 +92,23 @@ function Home() {
             <div className="offer-per">-25%</div>
           </Col>
         </Row>
-
-        {brands.map((item) => {
-          return (
-            <Row className="cat">
-              <Col
-                className="cat-label col-3"
-                style={{ backgroundImage: `url(${item.icon})` }}
-              >
-                <h2 className="cat-title">{item.name}</h2>
+        <Row className="cat">
+          <Col
+            className="cat-label col-3"
+            style={{ backgroundImage: `url(${brands.icon})` }}
+          >
+            <h2 className="cat-title">{brands.name}</h2>
+          </Col>
+          {brandsProducts.map((item) => {
+            return (
+              <Col className="product-home">
+                <p className="product-name">{item.name}</p>
+                <p className="product-price">From USD {item.price}</p>
+                <img className="img-product" src={item.image} alt=""></img>
               </Col>
-              {brandsProducts.map((item) => {
-                return (
-                  <Col className="product-home">
-                    <p className="product-name">{item.name}</p>
-                    <p className="product-price">From USD {item.price}</p>
-                    <img className="img-product" src={item.image} alt=""></img>
-                  </Col>
-                );
-              })}
-            </Row>
-          );
-        })}
-
+            );
+          })}
+        </Row>
         <h1 style={{ marginTop: "70px" }}>Recommended items</h1>
         <Row>
           {recomended.map((item) => {

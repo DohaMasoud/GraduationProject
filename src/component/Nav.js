@@ -9,7 +9,7 @@ function Nav() {
     <div className="nav-container1">
       <ul>
         <NavLink to="/Categories" className="nav-link" activeClassName="active-link">
-          <li><FaListUl /> All Category</li>
+          <li><FaListUl /> All Brands</li>
         </NavLink>
         <NavLink to="/Home" className="nav-link" activeClassName="active-link">
           <li>Home</li>

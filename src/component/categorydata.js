@@ -6,8 +6,8 @@ import { FaAws } from 'react-icons/fa';
 import {ProductContext} from"../context/ProductContext"
 import './Categoriess.css'; 
 
-function Categorydata({ key2, title, price, rating, stock, discount, img }) {
-    const [isFavorite, setIsFavorite] = useState(false);
+function Categorydata({ key2, title, price, rating, stock, discount, img ,favorite }) {
+    const [isFavorite, setIsFavorite] = useState(favorite);
     const {IdHandler}=useContext(ProductContext);
     const handleFavoriteClick = () => {
         setIsFavorite(!isFavorite);
@@ -46,8 +46,8 @@ function Categorydata({ key2, title, price, rating, stock, discount, img }) {
                     {isFavorite ? <MdFavorite /> : <MdFavoriteBorder />}
                 </div>
                 <div className="d-flex flex-row align-items-center mb-1">
-                    <h4 className="mb-1 me-1">${Math.round(price * (discount / 100))}</h4>
-                    <span style={{ color: 'gray' }}><s>${price}</s></span>
+                    <h4 className="mb-1 me-1">${price}</h4>
+                    {/* <span style={{ color: 'gray' }}><s>${price}</s></span> */}
                 </div>
                 <Card.Text style={{ fontSize: '20px' }}>
                     <span style={{ marginTop: '0px' }}><Rating rating={rating} /> {rating}</span>

@@ -11,14 +11,14 @@ import "./favorites.css";
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 
-function Favorites() {
+function Favorites({token}) {
   const api_url = "http://127.0.0.1:8000/api/favourites";
   const [favorites, setFavorites] = useState([]);
   const { IdHandler } = useContext(ProductContext);
 
   useEffect(() => {
     const fetchData = async () => {
-      const token = "5|78O5nAEGWzPhfsUcPCF1xYMPv9mqOdWh7MO07k3Fca5824d3";
+      // const token = "5|78O5nAEGWzPhfsUcPCF1xYMPv9mqOdWh7MO07k3Fca5824d3";
       const response = await axios.get(api_url, {
         headers: {
           Authorization: `Bearer ${token}`,
