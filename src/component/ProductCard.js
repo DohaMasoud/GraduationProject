@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import axios from 'axios';
 import './styles.css'; // Make sure to import the custom CSS
 
-function ProductCard({ key2, desc, title, total_reviews, seller_name, price, discount, rating, stock, brand, category, img }) {
+function ProductCard({ key2, desc, title, total_reviews, seller_name, price, discount, rating, stock, brand, category, img , token }) {
   const { IdHandler } = useContext(ProductContext); // Remove 'id' as it is not used directly
   const [isExpanded, setIsExpanded] = useState(false);
   const toggleExpand = () => setIsExpanded(!isExpanded);
@@ -18,7 +18,7 @@ function ProductCard({ key2, desc, title, total_reviews, seller_name, price, dis
 
   const handleAddToFavorites = async () => {
     try {
-      const token = "12|Np1zbZGbaOZNnLcR4HIdBVn3aE9i8QSsFHpjkAra6e40b604"; // Replace with your actual token
+      // const token = "12|Np1zbZGbaOZNnLcR4HIdBVn3aE9i8QSsFHpjkAra6e40b604"; // Replace with your actual token
       const favorites_url = 'http://127.0.0.1:8000/api/favourites';
       const response = await axios.post(favorites_url, { product_id: key2 }, {
         headers: {

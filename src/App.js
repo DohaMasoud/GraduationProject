@@ -35,7 +35,7 @@ function App() {
           <Route path="/About" element={<About />}></Route>
           <Route path="/Setting" element={<Setting />}></Route>
           <Route path="/Profile" element={<Profile />}></Route>
-          <Route path="/Product" element={<Product />}></Route>
+          <Route path="/Product" element={<Product token={token} />}></Route>
           <Route path="/ProductAnalysis" element={<ProductAnalysis />}></Route>
           <Route path="/Categories" element={<Categories token={token} />}></Route>
           <Route path="/Profiledata" element={<Profiledata />}></Route>
@@ -57,7 +57,7 @@ function App() {
           <Route path="/Setting" element={<Setting />}></Route>
           <Route path="/Profile" element={<Profile />}></Route>
           <Route path="/ProductAnalysis" element={<ProductAnalysis />}></Route>
-          <Route path="/Product" element={<Product />}></Route>
+          <Route path="/Product" element={<Product token={token} />}></Route>
           <Route path="/Categories" element={<Categories token={token} />}></Route>
           <Route path="/Profiledata" element={<Profiledata />}></Route>
           <Route path="/Resetpassdata" element={<Resetpassdata />}></Route>

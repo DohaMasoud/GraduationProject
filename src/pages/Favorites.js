@@ -31,7 +31,7 @@ function Favorites({token}) {
 
   const handleRemoveFavorite = async (favoriteId) => {
     try {
-      const token = "9|uMX7bNLu1Q1GyeP4iftuTXiXDrp0pVvJTEr822XB2f1d795f";
+      // const token = "9|uMX7bNLu1Q1GyeP4iftuTXiXDrp0pVvJTEr822XB2f1d795f";
       const deleteUrl = `http://127.0.0.1:8000/api/favourites/${favoriteId}`;
       await axios.delete(deleteUrl, {
         headers: {
@@ -103,7 +103,7 @@ function Favorites({token}) {
                 <span className="dot">.</span>
                 <span style={{ color: "#00B517" }}>Free Shipping</span>
                 <p style={{ color: "#8B96A5" }}>
-                  {item.product.short_description}
+                  {item.product.short_description.slice(0, 250)}
                 </p>
                 <NavLink
                   to="/Product"

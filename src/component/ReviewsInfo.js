@@ -4,7 +4,7 @@ import PaginationP from './PaginationP.js';
 import { ProductContext } from "../context/ProductContext.js";
 import axios from 'axios';
 
-const ReviewsInfo  = () => {
+const ReviewsInfo  = ({token}) => {
   const { id } = useContext(ProductContext);
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -17,7 +17,7 @@ const ReviewsInfo  = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const token = "12|Np1zbZGbaOZNnLcR4HIdBVn3aE9i8QSsFHpjkAra6e40b604";
+        // const token = "12|Np1zbZGbaOZNnLcR4HIdBVn3aE9i8QSsFHpjkAra6e40b604";
         const response = await axios.get(api_url, {
           headers: {
             Authorization: `Bearer ${token}`,
