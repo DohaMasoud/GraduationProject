@@ -44,6 +44,7 @@ const ProductInfo = () => {
           seller_name={productData.seller_name}
           total_reviews={productData.total_reviews}
           url={productData.url}
+          token={token}
         />
       )}
     </div>

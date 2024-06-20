@@ -6,7 +6,7 @@ import axios from 'axios';
 import './styles.css'; // Make sure to import the custom CSS
 import {TokenContext} from"../context/TokenContext.js"
 
-function ProductCard({ key2, desc, title, total_reviews, seller_name, price, discount, rating, stock, brand, category, img }) {
+function ProductCard({ key2, desc, title, total_reviews, seller_name, price, discount, rating, stock, brand, category, img  }) {
   const { IdHandler } = useContext(ProductContext); // Remove 'id' as it is not used directly
   const{token}=useContext(TokenContext)
 

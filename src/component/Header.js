@@ -12,11 +12,13 @@ import { CgProfile } from "react-icons/cg";
 import { ProductContext } from '../context/ProductContext';
 import axios from "axios";
 import './Header.css';
-
+import {TokenContext} from"../context/TokenContext.js"
 function Header() {
   const {id, IdHandler } = useContext(ProductContext);
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState('');
+  const{token}=useContext(TokenContext)
+
   let navigate = useNavigate();
 
   const handleInputChange = (event) => {
@@ -31,7 +33,7 @@ function Header() {
   const handleSearch = async (query) => {
     setLoading(true);
     try {
-      const token = "12|Np1zbZGbaOZNnLcR4HIdBVn3aE9i8QSsFHpjkAra6e40b604"; // Define the token here
+      // const token = "12|Np1zbZGbaOZNnLcR4HIdBVn3aE9i8QSsFHpjkAra6e40b604"; // Define the token here
       const response = await axios.get(`http://127.0.0.1:8000/api/url-feach?url=${query}`, {
         headers: {
           Authorization: `Bearer ${token}`,
