@@ -60,6 +60,7 @@ function Header({token}) {
           type="text"
           value={query}
           onChange={handleInputChange}
+          style={{width:'400px'}}
           placeholder="Search"
         />
         <Button type="submit" className="btn1" style={{ width: '130px', marginLeft: '-13px' }}>
@@ -73,11 +74,7 @@ function Header({token}) {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <ul>
-              <NavLink to="/Profile" className="nav-link1">
-                <CgProfile /><br />profile
-              </NavLink>
-            </ul>
+            
             <ul>
               <NavLink to="/Setting" className="nav-link1">
                 <IoSettingsSharp /><br />setting

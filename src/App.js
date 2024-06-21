@@ -5,7 +5,6 @@ import SignUp from "./pages/SignUp.js";
 import SignIn from "./pages/SignIn.js";
 import Contact from "./pages/Contact.js";
 import Favorites from "./pages/Favorites.js";
-import Profile from "./pages/profile.js";
 import About from "./pages/About.js";
 import Setting from "./pages/Setting.js";
 import Product from "./pages/Product.js";
@@ -33,7 +32,6 @@ function App() {
           <Route path="/Favorites" element={<Favorites token={token}/>}></Route>
           <Route path="/About" element={<About token={token}/>}></Route>
           <Route path="/Setting" element={<Setting token={token}/>}></Route>
-          <Route path="/Profile" element={<Profile token={token}/>}></Route>
           <Route path="/Product" element={<Product token={token} />}></Route>
           <Route path="/ProductAnalysis" element={<ProductAnalysis token={token}/>}></Route>
           <Route path="/Categories" element={<Categories token={token} />}></Route>
@@ -54,7 +52,6 @@ function App() {
           <Route path="/Favorites" element={<Favorites token={token}/>}></Route>
           <Route path="/About" element={<About token={token}/>}></Route>
           <Route path="/Setting" element={<Setting token={token} />}></Route>
-          <Route path="/Profile" element={<Profile token={token}/>}></Route>
           <Route path="/ProductAnalysis" element={<ProductAnalysis  token={token}/>}></Route>
           <Route path="/Product" element={<Product token={token}/>}></Route>
           <Route path="/Categories" element={<Categories  token={token}/>}></Route>
