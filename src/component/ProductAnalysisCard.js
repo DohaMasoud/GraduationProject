@@ -70,7 +70,7 @@ function ProductAnalysisCard({key2,title,price,rating,brand,total_reviews,img,to
                 <h5>{title}</h5>
                   <div className="text-danger mb-1 me-2">
                     <Rating rating={rating}/>
-                    <span className="mx-2">{rating}</span>
+                    <span className="mx-2">({rating})</span>
                     <span className="text-muted"> • </span>
                     <span className="text-muted">{total_reviews}</span>
                     <span className="mx-0 text-muted">reviews</span>

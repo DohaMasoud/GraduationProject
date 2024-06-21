@@ -30,6 +30,20 @@ function ProductCard({ key2, desc, title, total_reviews, seller_name, price, dis
       console.error('Error adding product to favorites:', error);
     }
   };
+  const Star = ({ filled }) => {
+    return (
+      <span style={{ color: filled ? 'gold' : 'lightgray' }}>
+        &#9733; 
+      </span>
+    );
+  };const Rating = ({ rating }) => {
+    const filledStars = Math.round(rating);
+     const stars = Array.from({ length: 5 }, (_, index) => (
+      <Star key={index} filled={index < filledStars} />
+    ));
+  
+    return <i>{stars}</i>;
+  };
 
   return (
     <>
@@ -51,12 +65,7 @@ function ProductCard({ key2, desc, title, total_reviews, seller_name, price, dis
                 <div className="col-md-6 col-lg-6 col-xl-6">
                   <h5>{title}</h5>
                   <div className="text-danger mb-1 me-2">
-                    <span className="text-warning">
-                      {Array.from({ length: 5 }, (_, index) => (
-                        <FaStar key={index} filled={index < Math.round(rating)} />
-                      ))}
-                    </span>
-                    <span className="mx-2">{rating}</span>
+                    <span className="mx-2"><Rating rating={rating}/><span >({rating})</span>                    </span>
                     <span className="text-muted"> • </span>
                     <span className="text-muted">{total_reviews} </span>
                     <span className="mx-0 text-muted">reviews</span>

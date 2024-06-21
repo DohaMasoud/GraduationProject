@@ -10,6 +10,8 @@ import './Categoriess.css';
 function Categorydata({ key2, title, price, rating, desc,img ,favorite,token }) {
     const [isFavorite, setIsFavorite] = useState(favorite);
     const {IdHandler}=useContext(ProductContext);
+    const [favorites, setFavorites] = useState([]);
+
     const handleFavoriteClick = () => {
         setIsFavorite(!isFavorite);
     };
@@ -47,7 +49,19 @@ function Categorydata({ key2, title, price, rating, desc,img ,favorite,token }) 
         ));
         return <i>{stars}</i>;
     };
-
+    const handleRemoveFavorite = async (favoriteId) => {
+        try {
+          const deleteUrl = `http://127.0.0.1:8000/api/favourites?product_id=${favoriteId}`;
+          await axios.delete(deleteUrl, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setFavorites(favorites.filter((item) => item.product.id !== favoriteId));
+        } catch (error) {
+          console.error('Error removing product from favorites:', error);
+        }
+      };
     return (
         <Card className="card-container">
             <div className="card-img-container">
@@ -61,8 +75,8 @@ function Categorydata({ key2, title, price, rating, desc,img ,favorite,token }) 
                 <div style={{fontWeight:"bold"}}>{getTruncatedText(title, descriptionLimit)}</div>
                 <div
                     className="favorite-icon"
-                    style={{ color: isFavorite ? 'red' : 'blue' }}
-                    onClick={() => { handleAddToFavorites(); handleFavoriteClick(); }}                    >
+                    style={{ color: isFavorite ? 'blue' : 'blue' }}
+                    onClick={!isFavorite?() => { handleAddToFavorites(); handleFavoriteClick();}:() => {handleRemoveFavorite(key2); handleFavoriteClick();}}                    >
                     {isFavorite ? <MdFavorite /> : <MdFavoriteBorder />}
                 </div>
                 <div style={{color:"gray",fontSize:"small"}}>{desc.slice(0,50)}</div>

@@ -4,23 +4,18 @@ import Footer from "../component/Footer.js";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import "./home.css";
 import { useState, useEffect } from "react";
-
 import axios from "axios";
 
-function Home({token}) {
+function Home({ token }) {
   const [recomended, setRecomended] = useState([]);
   const [brands, setBrands] = useState({});
   const [brandsProducts, setBrandsProducts] = useState([]);
+
   const recomended_api_url = "http://127.0.0.1:8000/api/recomended";
   const brands_api_url = "http://127.0.0.1:8000/api/random-brand";
   const brands_products_api_url =
     "http://127.0.0.1:8000/api/brand-products?brand_id=";
-    const getTruncatedText = (text, limit) => {
-      if (text.length <= limit) return text;
-      return text.substring(0, limit) + '...';
-    };
-  
-    const descriptionLimit = 15; 
+
   const fetchRecommended = async () => {
     // const token = "5|78O5nAEGWzPhfsUcPCF1xYMPv9mqOdWh7MO07k3Fca5824d3";
     const response = await axios.get(recomended_api_url, {
@@ -52,32 +47,18 @@ function Home({token}) {
   useEffect(() => {
     fetchRecommended();
     fetchBrands();
-  },[token]);
+  }, []);
 
   useEffect(() => {
     if (brands.id) {
       fetchBrandProducts(brands.id);
     }
-  }, [brands,token]);
-  const Star = ({ filled }) => {
-    return (
-      <span style={{ color: filled ? 'gold' : 'lightgray' }}>
-        &#9733; 
-      </span>
-    );
-  }; const Rating = ({ rating }) => {
-    const filledStars = Math.round(rating);
-     const stars = Array.from({ length: 5 }, (_, index) => (
-      <Star key={index} filled={index < filledStars} />
-    ));
-  
-    return <i>{stars}</i>;
-  };
+  }, [brands]);
 
   return (
     <>
       <div className="fixed-top">
-        <Header token={token}/>
+        <Header />
         <Nav />
       </div>
       <Container style={{ marginTop: "140px" }}>
@@ -112,28 +93,29 @@ function Home({token}) {
           </Col>
         </Row>
         <Row className="cat">
-          <Col className="cat-label col-2 " style={{textAlign:'center'}}>
+          <Col
+            className="cat-label col-3"
+            style={{ backgroundImage: `url(${brands.icon})` }}
+          >
             <h2 className="cat-title">{brands.name}</h2>
-            <img src={brands.icon} style={{width:"150px",height:"100px"}}/>
           </Col>
           {brandsProducts.map((item) => {
             return (
               <Col className="product-home">
-               <img className="img-product" src={item.image} alt=""></img>
-                <p className="product-name">{getTruncatedText(item.name, descriptionLimit)}</p>
-                <p className="product-price"><Rating rating={item.average_rating}/>({item.average_rating})</p>
+                <p className="product-name">{item.name}</p>
+                <p className="product-price">From USD {item.price}</p>
+                <img className="img-product" src={item.image} alt=""></img>
               </Col>
             );
           })}
         </Row>
+        <h1 style={{ marginTop: "70px" }}>Recommended items</h1>
         <Row>
-        <h2 style={{ marginTop:"70px" }}>Recommended items</h2>
-        <Row style={{display: "flex",justifyContent: "center"}}>
           {recomended.map((item) => {
             return (
               <Card
                 className="recommend-div"
-                style={{width:"fit-content"}}
+                style={{ width: "244px" }}
                 key={item.product.id}
               >
                 <Card.Img
@@ -142,13 +124,14 @@ function Home({token}) {
                   src={item.product.image}
                 />
                 <Card.Body>
-                  <Card.Title style={{fontSize:"large"}}>{item.product.price} EG</Card.Title>
-                  <Card.Text className="recommend-title">{getTruncatedText(item.product.name, descriptionLimit)}</Card.Text>
+                  <Card.Title>${item.product.price}</Card.Title>
+                  <Card.Text className="recommend-title">
+                    {item.product.name}
+                  </Card.Text>
                 </Card.Body>
               </Card>
             );
           })}
-        </Row>
         </Row>
       </Container>
       <Footer />

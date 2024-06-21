@@ -33,7 +33,6 @@ function App() {
           <Route path="/Favorites" element={<Favorites token={token}/>}></Route>
           <Route path="/About" element={<About token={token}/>}></Route>
           <Route path="/Setting" element={<Setting token={token}/>}></Route>
-          <Route path="/Profile" element={<Profile token={token}/>}></Route>
           <Route path="/Product" element={<Product token={token} />}></Route>
           <Route path="/ProductAnalysis" element={<ProductAnalysis token={token}/>}></Route>
           <Route path="/Categories" element={<Categories token={token} />}></Route>
@@ -54,7 +53,6 @@ function App() {
           <Route path="/Favorites" element={<Favorites token={token}/>}></Route>
           <Route path="/About" element={<About token={token}/>}></Route>
           <Route path="/Setting" element={<Setting token={token} />}></Route>
-          <Route path="/Profile" element={<Profile token={token}/>}></Route>
           <Route path="/ProductAnalysis" element={<ProductAnalysis  token={token}/>}></Route>
           <Route path="/Product" element={<Product token={token}/>}></Route>
           <Route path="/Categories" element={<Categories  token={token}/>}></Route>

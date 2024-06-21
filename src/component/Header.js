@@ -74,7 +74,7 @@ function Header({token}) {
             navbarScroll
           >
             <ul>
-              <NavLink to="/Profile" className="nav-link1">
+              <NavLink to="/Setting" className="nav-link1">
                 <CgProfile /><br />profile
               </NavLink>
             </ul>

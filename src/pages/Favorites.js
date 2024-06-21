@@ -30,13 +30,13 @@ function Favorites({token}) {
 
   const handleRemoveFavorite = async (favoriteId) => {
     try {
-      const deleteUrl = `http://127.0.0.1:8000/api/favourites/${favoriteId}`;
+      const deleteUrl = `http://127.0.0.1:8000/api/favourites?product_id=${favoriteId}`;
       await axios.delete(deleteUrl, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setFavorites(favorites.filter((item) => item.id !== favoriteId));
+      setFavorites(favorites.filter((item) => item.product.id !== favoriteId));
     } catch (error) {
       console.error('Error removing product from favorites:', error);
     }
@@ -115,7 +115,7 @@ function Favorites({token}) {
                 </NavLink>
               </Col>
               <Col>
-                <button className="fav_btn" onClick={() => handleRemoveFavorite(item.id)}>
+                <button className="fav_btn" onClick={() => handleRemoveFavorite(item.product.id)}>
                   <FaHeart className="heart" />
                 </button>
                 <br></br>

@@ -1,7 +1,6 @@
 @media (max-width: 768px) {
     .sidebar {
-        height: auto;
-        overflow: visible;
+        height: fit-content;
     }
 
     .content {

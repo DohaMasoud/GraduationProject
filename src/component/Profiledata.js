@@ -15,7 +15,7 @@ function Profiledata({token}) {
         email: null,
         password: null,
     });
-    const [profileImage, setProfileImage] = useState("asset/noprofil.jpg"); // state to store the profile image
+    const [profileImage, setProfileImage] = useState("asset/images7.png"); // state to store the profile image
 
     const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
@@ -86,16 +86,13 @@ function Profiledata({token}) {
         }
     };
 
-    return (
-        <div className="container" style={{ backgroundColor: "white", border: "1px solid #0871FF", padding: "30px", width: "100%", margin: "30px auto", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100vh" , marginTop:"150px"}}>
-            <h3 style={{ color: "#0871FF", display: "flex", justifyContent: 'center', fontSize: "30px", margin: "10px", padding: "20px" }}>Edit Your Profile</h3>
-
-
-
+    return (<>
+        <h3 style={{ color: "#0871FF", fontSize: "30px", padding: "20px" }}>Edit Your Profile</h3>
+        <div className="container" style={{ backgroundColor: "white", width: "100%", margin: "auto", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
             <form onSubmit={submitHandler} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                 
-                <div style={{ width: "100px", position: "relative", margin: "auto", marginBottom: "15px", display: "flex", justifyContent: "center" }}>
-                    <Image src={profileImage} roundedCircle style={{ width: "100px", height: "100px", border: "6px solid #eaeaea" }} />
+                <div style={{ width: "100px", position: "relative", margin: "auto", display: "flex", justifyContent: "center" }}>
+                    <Image src={profileImage} roundedCircle style={{ width: "100px", height: "100px"}} />
                     <div style={{ position: "absolute", bottom: "0", right: "0", width: "32px", height: "32px", lineHeight: "30px", textAlign: "center", overflow: "hidden" }}>
                         <input
                             type="file"
@@ -103,49 +100,52 @@ function Profiledata({token}) {
                             style={{ position: "absolute", transform: "scale(2)", opacity: "0" }}
                             onChange={handleImageChange}
                         />
-                        <i style={{ color: "black" }}><MdAddAPhoto /></i>
+                        <i style={{ color: "black",fontSize:"larger"}}><MdAddAPhoto /></i>
                     </div>
                 </div>
                 
-                
+                <label style={{width:"100%",color:"gray"}}>Your Name</label>
                 <input
                     type='text'
                     name='name'
                     className='border border-gray'
-                    placeholder="Enter name"
+                    placeholder=""
                     onChange={changeHandler}
                     value={formData.name}
-                    style={{ border: "1px solid #0871FF", width: "300px", padding: "10px", borderRadius: "10px" }}
+                    style={{ border: "1px solid #0871FF", width: "300px", padding: "10px", borderRadius: "10px" ,marginTop:"10px"}}
                 />
                 {err.name && <p className="text-danger">{err.name}</p>}
                 <br />
+                <label style={{width:"100%",color:"gray"}}>Email</label>
                 <input
                     type='email'
                     name='email'
                     className='border border-gray'
-                    placeholder="Enter email"
+                    placeholder=""
                     onChange={changeHandler}
                     value={formData.email}
-                    style={{ border: "1px solid #0871FF", width: "300px", padding: "10px", borderRadius: "10px" }}
+                    style={{ border: "1px solid #0871FF", width: "300px",marginTop:"10px", padding: "10px", borderRadius: "10px" }}
                 />
                 {err.email && <p className="text-danger">{err.email}</p>}
                 <br />
+                <label style={{width:"100%",float:"left",color:"gray"}}>Password</label>
                 <input
                     type='password'
                     name="password"
                     className='border border-gray'
-                    placeholder="Enter password"
+                    placeholder=""
                     onChange={changeHandler}
                     value={formData.password}
                     style={{ border: "1px solid #0871FF", width: "300px", padding: "10px", borderRadius: "10px" }}
                 />
+                <a href=""style={{width:"100%",display:"flex",justifyContent:"end",textDecoration:"none"}}>Reset Password</a>
                 {err.password && <p className="text-danger">{err.password}</p>}
-                <br />
-                <button type="submit" style={{ backgroundColor: "#0871FF", color: "white", border: "1px solid #0871FF", padding: "10px", width: "100px", borderRadius: "10px", fontWeight: "bold", margin: "5px auto", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
+                <button type="submit" style={{ backgroundColor: "#0871FF",marginTop:"10px", color: "white", border: "1px solid #0871FF", padding: "10px", width: "100px", borderRadius: "10px", fontWeight: "bold", margin: "5px auto", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
                     Save
                 </button>
             </form>
         </div>
+        </>
     );
 }
 

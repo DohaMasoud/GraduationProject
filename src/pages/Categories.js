@@ -101,6 +101,7 @@ function Categories({ token }) {
                 rating={product.average_rating}
                 favorite={product.is_favorite}
                 img={product.image}
+                token={token}
               />
             ))
           )}
