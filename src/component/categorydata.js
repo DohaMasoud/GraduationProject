@@ -3,15 +3,36 @@ import Card from 'react-bootstrap/Card';
 import { NavLink } from "react-router-dom";
 import { MdFavoriteBorder, MdFavorite } from 'react-icons/md';
 import { FaAws } from 'react-icons/fa';
-import {ProductContext} from"../context/ProductContext"
+import {ProductContext} from"../context/ProductContext";
+import axios from "axios";
 import './Categoriess.css'; 
 
-function Categorydata({ key2, title, price, rating, stock, discount, img ,favorite }) {
+function Categorydata({ key2, title, price, rating, desc,img ,favorite,token }) {
     const [isFavorite, setIsFavorite] = useState(favorite);
     const {IdHandler}=useContext(ProductContext);
     const handleFavoriteClick = () => {
         setIsFavorite(!isFavorite);
     };
+    const getTruncatedText = (text, limit) => {
+        if (text.length <= limit) return text;
+        return text.substring(0, limit) + '...';
+      };
+    
+      const descriptionLimit = 15; 
+      const handleAddToFavorites = async () => {
+        try {
+          const favorites_url = 'http://127.0.0.1:8000/api/favourites';
+          const response = await axios.post(favorites_url, { product_id: key2 }, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            }
+          });
+          console.log('Product added to favorites:', response.data);
+        } catch (error) {
+          console.error('Error adding product to favorites:', error);
+        }
+      };
+    
 
     const Star = ({ filled }) => (
         <span style={{ color: filled ? 'gold' : 'lightgray' }}>
@@ -37,27 +58,22 @@ function Categorydata({ key2, title, price, rating, stock, discount, img ,favori
             </div>
             <hr style={{margin:"1px"}}></hr>
             <Card.Body>
-                <div>{title}</div>
+                <div style={{fontWeight:"bold"}}>{getTruncatedText(title, descriptionLimit)}</div>
                 <div
                     className="favorite-icon"
                     style={{ color: isFavorite ? 'red' : 'blue' }}
-                    onClick={handleFavoriteClick}
-                >
+                    onClick={() => { handleAddToFavorites(); handleFavoriteClick(); }}                    >
                     {isFavorite ? <MdFavorite /> : <MdFavoriteBorder />}
                 </div>
+                <div style={{color:"gray",fontSize:"small"}}>{desc.slice(0,50)}</div>
                 <div className="d-flex flex-row align-items-center mb-1">
-                    <h4 className="mb-1 me-1">${price}</h4>
-                    {/* <span style={{ color: 'gray' }}><s>${price}</s></span> */}
+                    <p className="me-1" style={{marginBottom:"-10px"}}>{price} EG</p>
                 </div>
-                <Card.Text style={{ fontSize: '20px' }}>
-                    <span style={{ marginTop: '0px' }}><Rating rating={rating} /> {rating}</span>
-                    {stock > 0 ? (
-                        <p className="text-success"><i className="bi bi-check2-all"></i> In stock</p>
-                    ) : (
-                        <p className="text-danger">Out of stock</p>
-                    )}
+                <Card.Text>
+                    <span ><Rating rating={rating} /> ({rating})</span>
+                  
                     <span>
-                        <FaAws style={{ fontSize: '30px', float: 'right', marginTop: '-35px', color: 'blue' }} />
+                        <FaAws style={{ fontSize: '30px', float: 'right', color: 'blue' }} />
                     </span>
                 </Card.Text>
             </Card.Body>

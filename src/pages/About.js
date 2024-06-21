@@ -4,11 +4,11 @@ import Teamcart from "../component/Teamcart.js";
 import Nav from '../component/Nav.js';
 import Header from '../component/Header.js';
 import Footer from '../component/Footer.js';
-function About(){
+function About({token}){
     return(
         <>
      <div className="fixed-top">
-     <Header/>
+     <Header token={token}/>
        <Nav/>
      </div>
         <div className="c4" style={{display:"flex",margin:"15px",backgroundColor:'white',marginTop:"150px"}}  >

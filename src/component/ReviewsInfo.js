@@ -3,9 +3,8 @@ import ReviwesCard from './ReviwesCard';
 import PaginationP from './PaginationP.js';
 import { ProductContext } from "../context/ProductContext.js";
 import axios from 'axios';
-import {TokenContext} from"../context/TokenContext.js"
 
-const ReviewsInfo  = () => {
+const ReviewsInfo  = ({token}) => {
   const { id } = useContext(ProductContext);
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -13,7 +12,6 @@ const ReviewsInfo  = () => {
   const [postsPerPage] = useState(3);
   const [error, setError] = useState(null);
   const api_url = `http://127.0.0.1:8000/api/product/${id}`;
-  const{token}=useContext(TokenContext)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,7 +31,7 @@ const ReviewsInfo  = () => {
       }
     };
     fetchData();
-  }, [api_url]);
+  }, [token]);
 
   // Get current posts
   const indexOfLastPost = currentPage * postsPerPage;

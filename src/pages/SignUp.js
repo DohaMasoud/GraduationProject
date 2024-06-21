@@ -4,19 +4,20 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate, NavLink } from "react-router-dom";
 import Swal from "sweetalert2";
+import { RiEyeCloseFill } from "react-icons/ri";
 
 function SignUp() {
   const initalFormData = {
+    name:"",
     email: "",
     password: "",
-    Cpassword: "",
   };
 
   const [formData, setFormData] = useState({ ...initalFormData });
   const [err, setErr] = useState({
+    name:null,
     email: null,
     password: null,
-    Cpassword: null,
   });
 
   const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -31,15 +32,13 @@ function SignUp() {
         ...err,
         [e.target.name]: `${e.target.name} must be more than 6 characters.`,
       });
-    } else if (
-      e.target.name === "Cpassword" &&
-      e.target.value !== formData.password
-    ) {
+  
+    } else if(e.target.name === "name"&&e.target.value === null){
       setErr({
         ...err,
-        [e.target.name]: "Not Match",
+        [e.target.name]: `${e.target.name} empty name`,
       });
-    } else {
+    }else {
       setErr({ ...err, [e.target.name]: null });
     }
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -52,10 +51,9 @@ function SignUp() {
     if (
       !err.email &&
       !err.password &&
-      !err.Cpassword &&
+      !err.name&&
       emailRegex.test(formData.email) &&
-      formData.password.length > 6 &&
-      formData.password.match(formData.Cpassword)
+      formData.password.length > 6 &&formData.name!==null
     ) {
       setFormData({ ...initalFormData });
       console.log(formData);
@@ -98,6 +96,23 @@ function SignUp() {
           <Form.Group>
             <Form.Control
               type="text"
+              id="input"
+              name="name"
+              className="border border-gray"
+              placeholder="name"
+              onChange={changeHandler}
+              value={formData.name}
+              style={{ margin: "1px auto", width: "45%" }}
+            />
+             <Form.Text
+              className={err.name ? "text-danger mx-2" : "text-muted"}
+            >
+              {err.name ? err.name : "done"}
+            </Form.Text>
+          </Form.Group>
+          <Form.Group>
+            <Form.Control
+              type="text"
               id="input_email"
               name="email"
               className="border border-gray"
@@ -129,24 +144,6 @@ function SignUp() {
               {err.password ? err.password : "strong password"}
             </Form.Text>
           </Form.Group>
-          <Form.Group>
-            <Form.Control
-              type="password"
-              id="inputPassword6"
-              name="Cpassword"
-              className="border border-gray"
-              placeholder="Confirm password"
-              onChange={changeHandler}
-              value={formData.Cpassword}
-              style={{ margin: "1px auto", width: "45%" }}
-            />
-            <Form.Text
-              className={err.Cpassword ? " text-danger mx-2" : "text-muted"}
-            >
-              {err.Cpassword ? err.Cpassword : "Match"}
-            </Form.Text>
-          </Form.Group>
-
           <Button
             className="w-25"
             style={{

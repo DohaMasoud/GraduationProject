@@ -60,7 +60,6 @@
 
 .product-home {
     padding-top: 20px;
-    border-bottom: solid #ddd 1px;
     border-right: solid #ddd 1px;
 }
 
@@ -77,18 +76,16 @@
 .product-home img {
     width: 100px;
     height: 82px;
-    margin: 0px 0px 20px 120px;
 }
 
 .recommend-div {
     margin-right: 20px;
+    margin-top: 10px !important;
 }
 
 .recommend-img {
-    margin: 10px;
-    width: 150px;
-    height: 200px;
-    margin-left: 30px;
+    width: 100px;
+    margin: 15px auto;
 }
 
 .recommend-title {

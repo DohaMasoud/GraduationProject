@@ -2,11 +2,11 @@ import Image from 'react-bootstrap/Image';
 import Nav from '../component/Nav.js';
 import Header from '../component/Header.js';
 import Footer from '../component/Footer.js';
-function Contact() {
+function Contact({token}) {
   return (
     <>
   <div className="fixed-top">
-     <Header/>
+     <Header token={token}/>
        <Nav/>
      </div>
     <div style={{backgroundColor:"white",border:"1px solid #0871FF",padding:"30px",width:"75%", margin:"50px auto",marginTop:"140px"}}>

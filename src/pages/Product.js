@@ -6,17 +6,17 @@ import ProductInfo from "../component/ProductInfo.js";
 import ReviwesInfo from "../component/ReviewsInfo.js";
 import Relatedinfo from "../component/Relatedinfo.js";
 import Likedinfo from "../component/Likedinfo.js";
-function Product(){
+function Product({token}){
     return(
         <>
        <div className="fixed-top">
-     <Header />
+     <Header token={token}/>
        <Nav/>
      </div>
-        <ProductInfo />
+        <ProductInfo token={token} />
         <h4 className="text-left" style={{marginLeft:"100px"}}>DETAILED REVIEWS <hr style={{width:"300px"}}/></h4>
        <div className="row text-center" style={{justifyContent:'space-around',alignItems: 'baseline',display:'grid',gridTemplateColumns: '40% 25%'}}>
-        <div className="col border rounded shadow" style={{ padding:"15px "}}><ReviwesInfo /></div>
+        <div className="col border rounded shadow" style={{ padding:"15px "}}><ReviwesInfo token={token}/></div>
         <div className="col container border rounded " style={{backgroundColor:"white"}}>
             <p style={{textAlign:"left"}}>You May Like</p>
             <Likedinfo/>

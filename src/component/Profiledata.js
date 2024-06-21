@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Image from 'react-bootstrap/Image';
 import { MdAddAPhoto } from "react-icons/md";
 
-function Profiledata() {
+function Profiledata({token}) {
     const initFormData = {
         name: "",
         email: "",

@@ -1,21 +1,19 @@
-import React, { useEffect, useState,useContext } from "react";
+import React, { useEffect, useState } from "react";
 import Nav from "../component/Nav.js";
 import Header from "../component/Header.js";
 import Footer from "../component/Footer.js";
 import { Link } from "react-router-dom";
 import Categorydata from "../component/categorydata.js";
 import Pagination from "../component/Pagination.js";
-import {TokenContext} from"../context/TokenContext.js"
-
 import axios from "axios";
+import './category.css'; 
 
-function Categories() {
-  const{token}=useContext(TokenContext)
-
+function Categories({ token }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [brands, setBrands] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [activeBrand, setActiveBrand] = useState(null);
   const itemsPerPage = 10;
 
   const brands_api_url = "http://127.0.0.1:8000/api/brand";
@@ -23,7 +21,6 @@ function Categories() {
   const brands_products_api_url = "http://127.0.0.1:8000/api/brand-products?brand_id=";
 
   const getBrands = async () => {
-    // const token = "5|78O5nAEGWzPhfsUcPCF1xYMPv9mqOdWh7MO07k3Fca5824d3";
     const response = await axios.get(brands_api_url, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -33,7 +30,6 @@ function Categories() {
   };
 
   const fetchProducts = async () => {
-    // const token = "5|78O5nAEGWzPhfsUcPCF1xYMPv9mqOdWh7MO07k3Fca5824d3";
     setLoading(true);
     const response = await axios.get(products_api_url, {
       headers: {
@@ -42,21 +38,23 @@ function Categories() {
     });
     setData(response.data.data.products.data);
     setLoading(false);
+    setActiveBrand(null);
   };
 
   const getProductInBrand = async (id) => {
     const response = await axios.get(`${brands_products_api_url}${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setData(response.data.data.products.data);
-};
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    setData(response.data.data.products.data);
+    setActiveBrand(id);
+  };
 
   useEffect(() => {
     fetchProducts();
     getBrands();
-  }, []);
+  }, [token]);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -69,31 +67,27 @@ function Categories() {
   return (
     <>
       <div className="fixed-top">
-        <Header />
+        <Header token={token} />
         <Nav />
       </div>
-      <div style={styles.container}>
-        <div style={styles.sidebar}>
+      <div className="container1">
+        <div className="sidebar1">
           <ul className="list-unstyled">
-            <li style={styles.listItem}>
-              <Link style={styles.link} onClick={() => {
-                fetchProducts();
-                }}>
-                All
+            <li className={`bold-item1 ${!activeBrand ? 'active-link' : ''}`}>
+              <Link className='link1' onClick={fetchProducts}>
+                All Brands
               </Link>
             </li>
             {brands.map((brand, index) => (
-              <li key={index} style={styles.listItem}>
-                <Link style={styles.link} onClick={() => {
-                        getProductInBrand(brand.id);
-                    }}>
+              <li key={index} className={`list-item1 ${activeBrand === brand.id ? 'active-link' : ''}`}>
+                <Link className='link1' onClick={() => getProductInBrand(brand.id)}>
                   {brand.name}
                 </Link>
               </li>
             ))}
           </ul>
         </div>
-        <div style={styles.productGrid}>
+        <div className="product-grid1">
           {loading ? (
             <p>Loading...</p>
           ) : (
@@ -103,10 +97,9 @@ function Categories() {
                 key2={product.id}
                 title={product.name}
                 price={product.price}
+                desc={product.short_description}
                 rating={product.average_rating}
                 favorite={product.is_favorite}
-                // stock={product.stock}
-                // discount={product.discountPercentage}
                 img={product.image}
               />
             ))
@@ -123,45 +116,5 @@ function Categories() {
     </>
   );
 }
-
-const styles = {
-  container: {
-    display: "grid",
-    gridTemplateColumns: "20% 80%",
-    gap: "10px",
-    padding: "20px",
-    marginTop: "130px",
-  },
-  sidebar: {
-    backgroundColor: "white",
-    padding: "10px",
-  },
-  listItem: {
-    padding: "10px 5px",
-    textAlign: "center",
-  },
-  link: {
-    textDecoration: "none",
-    color: "#000",
-  },
-  productGrid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-    gap: "20px",
-  },
-  "@media (max-width: 768px)": {
-    container: {
-      gridTemplateColumns: "1fr",
-    },
-    productGrid: {
-      gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
-    },
-  },
-  "@media (max-width: 480px)": {
-    productGrid: {
-      gridTemplateColumns: "repeat(auto-fit, minmax(100px, 1fr))",
-    },
-  },
-};
 
 export default Categories;

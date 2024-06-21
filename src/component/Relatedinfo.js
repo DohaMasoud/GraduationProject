@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState} from "react";
 import Related from "./Related.js";
-export default function Relatedinfo(){
+export default function Relatedinfo({token}){
   const [data,setdata]=useState([]);
   const fetchUserData = () => {
     fetch(`https://dummyjson.com/product`)

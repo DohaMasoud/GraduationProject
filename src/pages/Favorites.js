@@ -8,12 +8,10 @@ import { IoIosStar } from "react-icons/io";
 import { FaAws } from "react-icons/fa";
 import { ProductContext } from "../context/ProductContext";
 import "./favorites.css";
-import { TokenContext } from "../context/TokenContext.js";
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 
-function Favorites() {
-  const { token } = useContext(TokenContext);
+function Favorites({token}) {
   const api_url = "http://127.0.0.1:8000/api/favourites";
   const [favorites, setFavorites] = useState([]);
   const { IdHandler } = useContext(ProductContext);
@@ -61,10 +59,17 @@ function Favorites() {
     return <i>{stars}</i>;
   };
 
+  const getTruncatedText = (text, limit) => {
+    if (text.length <= limit) return text;
+    return text.substring(0, limit) + '...';
+  };
+
+  const descriptionLimit = 100; // Set a character limit for the truncated text
+
   return (
     <>
       <div className="fixed-top">
-        <Header />
+        <Header token={token}/>
         <Nav />
       </div>
       <Container style={{ marginTop: "125px" }}>
@@ -96,7 +101,8 @@ function Favorites() {
                 <span className="dot">.</span>
                 <span style={{ color: "#00B517" }}>Free Shipping</span>
                 <p style={{ color: "#8B96A5" }}>
-                {item.product.short_description.slice(0, 250)}                </p>
+                  {getTruncatedText(item.product.short_description, descriptionLimit)}
+                </p>
                 <NavLink
                   to="/Product"
                   className="view_details1"

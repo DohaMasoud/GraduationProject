@@ -1,13 +1,10 @@
 import { Form, Image, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useContext, useState } from "react";
+import {useState } from "react";
 import axios from "axios";
 import { useNavigate, NavLink } from "react-router-dom";
 import Swal from "sweetalert2";
-import { TokenContext } from "../context/TokenContext";
-
-function SignIn() {
-  const{tokenHandler}=useContext(TokenContext)
+function SignIn({setToken}) {
   const initalFormData = {
     email: "",
     password: "",
@@ -52,9 +49,10 @@ function SignIn() {
         "http://127.0.0.1:8000/api/auth/login",
         formData
       );
-      tokenHandler(response.data.data.token);
-      console.log(response.data.data.token);
-
+      const token = response.data.data.token;
+      setToken(token);
+      console.log(token);
+      localStorage.setItem('token', token);
       Swal.fire({
         text: "welcom my Dear ❤🌏",
       });

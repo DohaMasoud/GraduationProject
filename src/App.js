@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useContext } from "react";
+import React, { useState} from "react";
 import History from "./pages/History.js";
 import SignUp from "./pages/SignUp.js";
 import SignIn from "./pages/SignIn.js";
@@ -15,52 +15,51 @@ import Categories from "./pages/Categories.js";
 import ProductAnalysis from "./pages/ProductAnalysis.js";
 import Profiledata from "./component/Profiledata.js";
 import Resetpassdata from "./component/Resetpassdata.js";
-import { TokenContext } from "./context/TokenContext.js";
 function App() {
-  const{token}=useContext(TokenContext)
-  return (
+  const [token, setToken] = useState(localStorage.getItem('token')); 
+   return (
     <>
-      {token !== "" ? (
+      {token? (
         <Routes>
-          <Route path="/" element={<Home  />}></Route>
-          <Route path="/Home" element={<Home />}></Route>
-          <Route path="/History" element={<History />}></Route>
+          <Route path="/" element={<Home token={token} />}></Route>
+          <Route path="/Home" element={<Home token={token}/>}></Route>
+          <Route path="/History" element={<History token={token}/>}></Route>
           <Route path="/SignUp" element={<SignUp />}></Route>
           <Route
             path="/SignIn"
-            element={<SignIn/>}
+            element={<SignIn setToken={setToken}/>}
           ></Route>
-          <Route path="/Contact" element={<Contact />}></Route>
-          <Route path="/Favorites" element={<Favorites />}></Route>
-          <Route path="/About" element={<About />}></Route>
-          <Route path="/Setting" element={<Setting />}></Route>
-          <Route path="/Profile" element={<Profile />}></Route>
-          <Route path="/Product" element={<Product  />}></Route>
-          <Route path="/ProductAnalysis" element={<ProductAnalysis />}></Route>
-          <Route path="/Categories" element={<Categories />}></Route>
-          <Route path="/Profiledata" element={<Profiledata />}></Route>
-          <Route path="/Resetpassdata" element={<Resetpassdata />}></Route>
+          <Route path="/Contact" element={<Contact token={token}/>}></Route>
+          <Route path="/Favorites" element={<Favorites token={token}/>}></Route>
+          <Route path="/About" element={<About token={token}/>}></Route>
+          <Route path="/Setting" element={<Setting token={token}/>}></Route>
+          <Route path="/Profile" element={<Profile token={token}/>}></Route>
+          <Route path="/Product" element={<Product token={token} />}></Route>
+          <Route path="/ProductAnalysis" element={<ProductAnalysis token={token}/>}></Route>
+          <Route path="/Categories" element={<Categories token={token} />}></Route>
+          <Route path="/Profiledata" element={<Profiledata token={token}/>}></Route>
+          <Route path="/Resetpassdata" element={<Resetpassdata token={token}/>}></Route>
         </Routes>
       ) : (
         <Routes>
-          <Route path="/" element={<SignIn/>}></Route>
-          <Route path="/Home" element={<Home />}></Route>
-          <Route path="/History" element={<History />}></Route>
+          <Route path="/" element={<SignIn setToken={setToken}/>}></Route>
+          <Route path="/Home" element={<Home token={token} />}></Route>
+          <Route path="/History" element={<History  token={token}/>}></Route>
           <Route path="/SignUp" element={<SignUp />}></Route>
           <Route
             path="/SignIn"
-            element={<SignIn />}
+            element={<SignIn setToken={setToken} />}
           ></Route>
-          <Route path="/Contact" element={<Contact />}></Route>
-          <Route path="/Favorites" element={<Favorites />}></Route>
-          <Route path="/About" element={<About />}></Route>
-          <Route path="/Setting" element={<Setting />}></Route>
-          <Route path="/Profile" element={<Profile />}></Route>
-          <Route path="/ProductAnalysis" element={<ProductAnalysis />}></Route>
-          <Route path="/Product" element={<Product />}></Route>
-          <Route path="/Categories" element={<Categories  />}></Route>
-          <Route path="/Profiledata" element={<Profiledata />}></Route>
-          <Route path="/Resetpassdata" element={<Resetpassdata />}></Route>
+          <Route path="/Contact" element={<Contact token={token} />}></Route>
+          <Route path="/Favorites" element={<Favorites token={token}/>}></Route>
+          <Route path="/About" element={<About token={token}/>}></Route>
+          <Route path="/Setting" element={<Setting token={token} />}></Route>
+          <Route path="/Profile" element={<Profile token={token}/>}></Route>
+          <Route path="/ProductAnalysis" element={<ProductAnalysis  token={token}/>}></Route>
+          <Route path="/Product" element={<Product token={token}/>}></Route>
+          <Route path="/Categories" element={<Categories  token={token}/>}></Route>
+          <Route path="/Profiledata" element={<Profiledata  token={token}/>}></Route>
+          <Route path="/Resetpassdata" element={<Resetpassdata  token={token}/>}></Route>
         </Routes>
       )}
     </>

@@ -1,11 +1,9 @@
 import React, { useContext } from "react";
 import { FaHeart } from "react-icons/fa";
 import {ProductContext} from"../context/ProductContext";
-import {TokenContext} from"../context/TokenContext.js"
 
 import axios from 'axios';
-function ProductAnalysisCard({key2,title,price,rating,brand,total_reviews,img}){
-  const{token}=useContext(TokenContext)
+function ProductAnalysisCard({key2,title,price,rating,brand,total_reviews,img,token}){
   const {IdHandler}=useContext(ProductContext);
   const handleAddToFavorites = async () => {
     try {
@@ -59,7 +57,7 @@ function ProductAnalysisCard({key2,title,price,rating,brand,total_reviews,img}){
             <div className="row">
               <div className="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
                 <div className="bg-image hover-zoom ripple rounded ripple-surface">
-                  <img src={img[0]}className="w-100 rounded" />
+                  <img src={img}className="w-100 rounded" />
                   <a href="#!">
                   <div className="hover-overlay">
                     <div className="mask"></div>

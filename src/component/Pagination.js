@@ -9,7 +9,7 @@ const Pagination = ({ itemsPerPage, totalItems, currentPage, onPageChange }) => 
     }
 
     return (
-        <nav>
+        <nav style={{position:"absolute",bottom:"0px",right:"0px"}}>
             <ul className="pagination">
                 {pageNumbers.map(number => (
                     <li key={number} className={`page-item ${number === currentPage ? 'active' : ''}`}>

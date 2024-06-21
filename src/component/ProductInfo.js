@@ -2,14 +2,12 @@ import React, { useState, useEffect, useContext } from 'react';
 import ProductCard from './ProductCard';
 import { ProductContext } from '../context/ProductContext';
 import axios from 'axios';
-import {TokenContext} from"../context/TokenContext.js"
 
-const ProductInfo = () => {
+const ProductInfo = ({token}) => {
   const [productData, setProductData] = useState(null);
   const [error, setError] = useState(null);
   const { id } = useContext(ProductContext);
   const api_url = `http://127.0.0.1:8000/api/product/${id}`;
-  const{token}=useContext(TokenContext)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,7 +24,7 @@ const ProductInfo = () => {
       }
     };
     fetchData();
-  }, [api_url]);
+  }, [token]);
 
   return (
     <div style={{ marginTop: '150px' }}>

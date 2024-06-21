@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import ProductAnalysisCard from './ProductAnalysisCard';
 import { ProductContext } from '../context/ProductContext';
-import {TokenContext} from"../context/TokenContext"
 
 import axios from 'axios';
 
-const ProductAnalysisdata = () => {
-  const{token}=useContext(TokenContext)
+const ProductAnalysisdata = ({token}) => {
   const [productData, setProductData] = useState(null);
   const [error, setError] = useState(null);
   const { id } = useContext(ProductContext);
@@ -27,7 +25,7 @@ const ProductAnalysisdata = () => {
       }
     };
     fetchData();
-  }, [api_url]);
+  }, [token]);
 
   if (error) {
     return <p>There was an error fetching the data: {error.message}</p>;
@@ -49,6 +47,7 @@ const ProductAnalysisdata = () => {
            total_reviews={productData.total_reviews}
            brand={productData.brand.name}      
            img={productData.image}
+           token={token}
          />
       )}
     </div>

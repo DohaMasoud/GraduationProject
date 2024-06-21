@@ -4,13 +4,11 @@ import Footer from "../component/Footer.js";
 import { Row, Col, Container } from "react-bootstrap";
 import { IoIosStar } from "react-icons/io";
 import "./history.css";
-import { useState, useEffect ,useContext} from "react";
-import {TokenContext} from"../context/TokenContext.js"
+import { useState, useEffect } from "react";
 
 import axios from "axios";
 
-function History() {
-  const{token}=useContext(TokenContext)
+function History({token}) {
 
   const api_url = "http://127.0.0.1:8000/api/recent";
   const [recent, setRecent] = useState([]);
@@ -26,12 +24,12 @@ function History() {
       setRecent(response.data.data.recent.data);
     };
     fetchData();
-  }, []);
+  }, [token]);
 
   return (
     <>
       <div className="fixed-top">
-        <Header />
+        <Header token={token} />
         <Nav />
       </div>
       <Container style={{ padding: "50px", marginTop: "80px" }}>

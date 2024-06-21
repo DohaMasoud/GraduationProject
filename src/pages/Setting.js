@@ -10,11 +10,11 @@ import Resetpassdata from "../component/Resetpassdata.js"
 import { Route } from 'react-router-dom';
 import { Routes } from 'react-router-dom';
 
-function Setting() {
+function Setting({token}) {
     return (
         <>
           <div className="fixed-top">
-     <Header/>
+     <Header token={token}/>
        <Nav/>
      </div>
             <div className="container-fluid" >
@@ -39,7 +39,7 @@ function Setting() {
                         </div>
                         <hr />
                     </div>
-                    <div className="col-lg-10 col-md-9 col-sm-8 col-12" style={styles.content}>
+                    <div className="col-lg-7 col-md-5 col-sm-3 " style={styles.content}>
                         <Profiledata />
                         {/* <Resetpassdata /> */}
                         <Routes>

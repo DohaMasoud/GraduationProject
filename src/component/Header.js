@@ -12,12 +12,10 @@ import { CgProfile } from "react-icons/cg";
 import { ProductContext } from '../context/ProductContext';
 import axios from "axios";
 import './Header.css';
-import {TokenContext} from"../context/TokenContext.js"
-function Header() {
+function Header({token}) {
   const {id, IdHandler } = useContext(ProductContext);
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState('');
-  const{token}=useContext(TokenContext)
 
   let navigate = useNavigate();
 

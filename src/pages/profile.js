@@ -5,12 +5,12 @@ import Footer from '../component/Footer.js';
 import Profiledata from "../component/Profiledata.js";
 
 
-function Profile(){
+function Profile({token}){
     
     return(
         <>
         <div className="fixed-top">
-     <Header/>
+     <Header token={token}/>
        <Nav/>
      </div>
         <Profiledata/>

@@ -4,10 +4,8 @@ import PaginationP from './PaginationP.js';
 import Sentiment from 'sentiment';
 import { ProductContext } from "../context/ProductContext.js";
 import axios from 'axios';
-import {TokenContext} from"../context/TokenContext.js"
 
-const FilterReviews = () => {
-  const{token}=useContext(TokenContext)
+const FilterReviews = ({token}) => {
 
   const { id } = useContext(ProductContext);
   const [reviews, setReviews] = useState([]);
