@@ -16,7 +16,8 @@ import Profiledata from "./component/Profiledata.js";
 import Resetpassdata from "./component/Resetpassdata.js";
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token')); 
-   return (
+  const [id,setid] = useState(localStorage.getItem('id')); 
+  return (
     <>
       {token? (
         <Routes>
@@ -26,12 +27,12 @@ function App() {
           <Route path="/SignUp" element={<SignUp />}></Route>
           <Route
             path="/SignIn"
-            element={<SignIn setToken={setToken}/>}
+            element={<SignIn setToken={setToken} setid={setid}/>}
           ></Route>
           <Route path="/Contact" element={<Contact token={token}/>}></Route>
           <Route path="/Favorites" element={<Favorites token={token}/>}></Route>
           <Route path="/About" element={<About token={token}/>}></Route>
-          <Route path="/Setting" element={<Setting token={token}/>}></Route>
+          <Route path="/Setting" element={<Setting token={token} id={id}/>}></Route>
           <Route path="/Product" element={<Product token={token} />}></Route>
           <Route path="/ProductAnalysis" element={<ProductAnalysis token={token}/>}></Route>
           <Route path="/Categories" element={<Categories token={token} />}></Route>
@@ -46,12 +47,12 @@ function App() {
           <Route path="/SignUp" element={<SignUp />}></Route>
           <Route
             path="/SignIn"
-            element={<SignIn setToken={setToken} />}
+            element={<SignIn setToken={setToken} setid={setid}/>}
           ></Route>
           <Route path="/Contact" element={<Contact token={token} />}></Route>
           <Route path="/Favorites" element={<Favorites token={token}/>}></Route>
           <Route path="/About" element={<About token={token}/>}></Route>
-          <Route path="/Setting" element={<Setting token={token} />}></Route>
+          <Route path="/Setting" element={<Setting token={token} id={id} />}></Route>
           <Route path="/ProductAnalysis" element={<ProductAnalysis  token={token}/>}></Route>
           <Route path="/Product" element={<Product token={token}/>}></Route>
           <Route path="/Categories" element={<Categories  token={token}/>}></Route>

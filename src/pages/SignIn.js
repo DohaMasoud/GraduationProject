@@ -1,10 +1,10 @@
 import { Form, Image, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useNavigate, NavLink } from "react-router-dom";
 import Swal from "sweetalert2";
-function SignIn({setToken}) {
+function SignIn({setToken,setid}) {
   const initalFormData = {
     email: "",
     password: "",
@@ -50,9 +50,12 @@ function SignIn({setToken}) {
         formData
       );
       const token = response.data.data.token;
+      const id = response.data.data.user.id;
       setToken(token);
-      console.log(token);
+      setid(id);
+      console.log(id);
       localStorage.setItem('token', token);
+      localStorage.setItem('id',id);
       Swal.fire({
         text: "welcom my Dear ❤🌏",
       });

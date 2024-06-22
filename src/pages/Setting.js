@@ -11,7 +11,7 @@ import { CgProfile } from "react-icons/cg";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { IoIosLogOut } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
-function Setting({ token }) {
+function Setting({ token,id }) {
     const [activeComponent, setActiveComponent] = useState('profile');
     let navigate = useNavigate();
 
@@ -59,13 +59,13 @@ function Setting({ token }) {
                             </Link>
                         </div>
                         <div style={{ borderBottom: "1px solid gray" }}>
-                            <Link to="#" onClick={()=>logout()} style={styles.link}>
+                            <Link to="#" onClick={logout} style={styles.link}>
                                 <p style={{ color: "red" }}><IoIosLogOut style={{ float: "left", fontSize: "large", marginTop: "10px" }} />Log Out <FaChevronRight style={{ float: "right", fontSize: "large", marginTop: "10px" }} /></p>
                             </Link>
                         </div>
                     </div>
                     <div className="col-lg-7 col-md-5 col-sm-3" style={styles.content}>
-                        {activeComponent === 'profile' && <Profiledata />}
+                        {activeComponent === 'profile' && <Profiledata token={token} id={id}/>}
                         {activeComponent === 'resetPassword' && <Resetpassdata />}
                     </div>
                 </div>

@@ -1,59 +1,64 @@
 import Nav from "../component/Nav.js";
 import Header from "../component/Header.js";
 import Footer from "../component/Footer.js";
-import { Container, Row, Col, Card } from "react-bootstrap";
+import { Container, Row, Card } from "react-bootstrap";
 import "./home.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect ,useRef} from "react";
 import axios from "axios";
+import Carousel from 'react-bootstrap/Carousel';
+import Categorydata from "../component/categorydata.js";
 
 function Home({ token }) {
-  const [recomended, setRecomended] = useState([]);
-  const [brands, setBrands] = useState({});
-  const [brandsProducts, setBrandsProducts] = useState([]);
+  function Carousels() {
+    return (
+      <Carousel className="text-white">
+        <Carousel.Item>
+          <img
+            className="d-block"
+            src="asset/slid1.jpg"
+            alt="First slide"
+          />
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block"
+            src="asset/slid2.jpg"
+            alt="Second slide"
+          />  
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block"
+            src="asset/slid3.jpg"
+            alt="Third slide"
+          />
+         
+        </Carousel.Item>
+      </Carousel>
+    );
+  }
 
-  const recomended_api_url = "http://127.0.0.1:8000/api/recomended";
-  const brands_api_url = "http://127.0.0.1:8000/api/random-brand";
-  const brands_products_api_url =
-    "http://127.0.0.1:8000/api/brand-products?brand_id=";
+  const [recommended, setRecommended] = useState([]);
+  const hasFetchedData = useRef(false);
+  const recommended_api_url = "http://127.0.0.1:8000/api/recomended";
 
   const fetchRecommended = async () => {
-    // const token = "5|78O5nAEGWzPhfsUcPCF1xYMPv9mqOdWh7MO07k3Fca5824d3";
-    const response = await axios.get(recomended_api_url, {
+    const response = await axios.get(recommended_api_url, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    setRecomended(response.data.data.products);
+    setRecommended(response.data.data.products);
   };
 
-  const fetchBrands = async () => {
-    const response1 = await axios.get(brands_api_url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    setBrands(response1.data.data.brands.data[0]);
-  };
-
-  const fetchBrandProducts = async (id) => {
-    const response2 = await axios.get(`${brands_products_api_url}${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    setBrandsProducts(response2.data.data.products.data);
-  };
 
   useEffect(() => {
-    fetchRecommended();
-    fetchBrands();
-  }, []);
-
-  useEffect(() => {
-    if (brands.id) {
-      fetchBrandProducts(brands.id);
+    if (!hasFetchedData.current) {
+      fetchRecommended();
+      hasFetchedData.current = true;
     }
-  }, [brands]);
+  }, [token]);
+
 
   return (
     <>
@@ -61,81 +66,34 @@ function Home({ token }) {
         <Header />
         <Nav />
       </div>
-      <Container style={{ marginTop: "140px" }}>
-        <Row className="offers">
-          <Col className="offer-col">
-            <h2 className="offer-title">Deals and offers</h2>
-            <p style={{ color: "#616161" }}>Hygiene equipments</p>
-            <div className="offer-time">04 Days</div>
-            <div className="offer-time">13 Hour</div>
-            <div className="offer-time">34 Min</div>
-            <div className="offer-time">56 Sec</div>
-          </Col>
-          <Col className="offer-col">
-            <img className="offer-img" src="asset/iphone.jpg" alt=""></img>
-            <p className="offer-name">Smart watches</p>
-            <div className="offer-per">-25%</div>
-          </Col>
-          <Col className="offer-col">
-            <img className="offer-img" src="asset/iphone.jpg" alt=""></img>
-            <p className="offer-name">Smart watches</p>
-            <div className="offer-per">-25%</div>
-          </Col>
-          <Col className="offer-col">
-            <img className="offer-img" src="asset/iphone.jpg" alt=""></img>
-            <p className="offer-name">Smart watches</p>
-            <div className="offer-per">-25%</div>
-          </Col>
-          <Col className="offer-col">
-            <img className="offer-img" src="asset/iphone.jpg" alt=""></img>
-            <p className="offer-name">Smart watches</p>
-            <div className="offer-per">-25%</div>
-          </Col>
-        </Row>
-        <Row className="cat">
-          <Col
-            className="cat-label col-3"
-            style={{ backgroundImage: `url(${brands.icon})` }}
-          >
-            <h2 className="cat-title">{brands.name}</h2>
-          </Col>
-          {brandsProducts.map((item) => {
-            return (
-              <Col className="product-home">
-                <p className="product-name">{item.name}</p>
-                <p className="product-price">From USD {item.price}</p>
-                <img className="img-product" src={item.image} alt=""></img>
-              </Col>
-            );
-          })}
-        </Row>
-        <h1 style={{ marginTop: "70px" }}>Recommended items</h1>
-        <Row>
-          {recomended.map((item) => {
-            return (
-              <Card
-                className="recommend-div"
-                style={{ width: "244px" }}
-                key={item.product.id}
-              >
-                <Card.Img
-                  className="recommend-img"
-                  variant="top"
-                  src={item.product.image}
-                />
-                <Card.Body>
-                  <Card.Title>${item.product.price}</Card.Title>
-                  <Card.Text className="recommend-title">
-                    {item.product.name}
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            );
-          })}
-        </Row>
-      </Container>
+      <div className="content " style={{marginTop:"127px"}}>
+        <Carousels />
+        <Container style={{ marginTop: "50px" }}>
+          <h1>Recomended items</h1>
+          <div style={{ display:"grid",gridTemplateColumns:"auto auto auto"}}>
+            {recommended.map((item, index) => {
+                if (index < 3) {
+                  return (
+                    <Categorydata
+                      key={item.product.id}
+                      key2={item.product.id}
+                      title={item.product.name}
+                      price={item.product.price}
+                      desc={item.product.short_description}
+                      rating={item.product.average_rating}
+                      favorite={item.product.is_favorite}
+                      img={item.product.image}
+                      token={token}
+                    />
+                  );
+                }
+              })};
+          </div>
+        </Container>
+      </div>
       <Footer />
     </>
   );
 }
+
 export default Home;

@@ -13,7 +13,7 @@ function Profile({token}){
      <Header token={token}/>
        <Nav/>
      </div>
-        <Profiledata/>
+        <Profiledata token={token}/>
         <Footer/>
         </>
     );

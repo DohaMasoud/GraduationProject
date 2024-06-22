@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from 'react-bootstrap/Image';
 import { MdAddAPhoto } from "react-icons/md";
+import axios from 'axios';
 
-function Profiledata({token}) {
+function Profiledata({ token, id }) {
     const initFormData = {
         name: "",
         email: "",
         password: "",
+        password_confirmation: "", // Added password confirmation field
     };
 
     const [formData, setFormData] = useState({ ...initFormData });
@@ -14,21 +16,53 @@ function Profiledata({token}) {
         name: null,
         email: null,
         password: null,
+        password_confirmation: null, // Added error state for password confirmation
     });
     const [profileImage, setProfileImage] = useState("asset/images7.png"); // state to store the profile image
 
     const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`http://127.0.0.1:8000/api/user-data`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                const user = response.data.data; // Assuming the data is nested under `data.data`
+                setFormData({
+                    name: user.name,
+                    email: user.email,
+                    password: "", // Leave password empty initially
+                    password_confirmation: "", // Leave password confirmation empty initially
+                });
+                if (user.profileImage) {
+                    setProfileImage(user.profileImage);
+                }
+            } catch (error) {
+                setErr((prev) => ({
+                    ...prev,
+                    fetch: "Error fetching user data.",
+                }));
+                console.error('There was an error fetching the data:', error);
+            }
+        };
+        fetchData();
+    }, [token]);
+
     const changeHandler = (e) => {
         const { name, value } = e.target;
         let error = null;
 
-        if (name === "name" && value.length <= 8) {
-            error = `${name} must be more than 8 characters.`;
+        if (name === "name" && value.length <= 6) {
+            error = `${name} must be more than 5 characters.`;
         } else if (name === "email" && !emailRegex.test(value)) {
             error = `Valid Email :'name@email.com' `;
         } else if (name === "password" && value.length <= 6) {
             error = `${name} must be more than 6 characters.`;
+        } else if (name === "password_confirmation" && value !== formData.password) {
+            error = `Passwords do not match.`;
         }
 
         setErr({
@@ -49,15 +83,15 @@ function Profiledata({token}) {
         }
     };
 
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault();
-        const { name, email, password } = formData;
+        const { name, email, password, password_confirmation } = formData;
         let valid = true;
 
-        if (name.length <= 8) {
+        if (name.length <= 6) {
             setErr((prev) => ({
                 ...prev,
-                name: "Name must be more than 8 characters.",
+                name: "Name must be more than 6 characters.",
             }));
             valid = false;
         }
@@ -70,7 +104,7 @@ function Profiledata({token}) {
             valid = false;
         }
 
-        if (password.length <= 6) {
+        if (password.length > 0 && password.length <= 6) {
             setErr((prev) => ({
                 ...prev,
                 password: "Password must be more than 6 characters.",
@@ -78,73 +112,103 @@ function Profiledata({token}) {
             valid = false;
         }
 
+        if (password !== password_confirmation) {
+            setErr((prev) => ({
+                ...prev,
+                password_confirmation: "Passwords do not match.",
+            }));
+            valid = false;
+        }
+
         if (valid) {
-            setFormData({ ...initFormData });
-            alert("Welcome, my Dear ❤🌏");
+            try {
+                const response = await axios.put(`http://127.0.0.1:8000/api/auth/update/${id}`, formData, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                setFormData({ ...initFormData });
+                alert("Profile updated successfully!");
+            } catch (error) {
+                console.error('There was an error updating the data:', error);
+                alert("Error updating profile.");
+            }
         } else {
-            alert("Sorry, enter valid data! Try Again 😃");
+            alert("Please correct the errors and try again.");
         }
     };
 
-    return (<>
-        <h3 style={{ color: "#0871FF", fontSize: "30px", padding: "20px" }}>Edit Your Profile</h3>
-        <div className="container" style={{ backgroundColor: "white", width: "100%", margin: "auto", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-            <form onSubmit={submitHandler} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                
-                <div style={{ width: "100px", position: "relative", margin: "auto", display: "flex", justifyContent: "center" }}>
-                    <Image src={profileImage} roundedCircle style={{ width: "100px", height: "100px"}} />
-                    <div style={{ position: "absolute", bottom: "0", right: "0", width: "32px", height: "32px", lineHeight: "30px", textAlign: "center", overflow: "hidden" }}>
-                        <input
-                            type="file"
-                            accept="image/*"
-                            style={{ position: "absolute", transform: "scale(2)", opacity: "0" }}
-                            onChange={handleImageChange}
-                        />
-                        <i style={{ color: "black",fontSize:"larger"}}><MdAddAPhoto /></i>
+    return (
+        <>
+            <h3 style={{ color: "#0871FF", fontSize: "30px", padding: "20px" }}>Edit Your Profile</h3>
+            <div className="container" style={{ backgroundColor: "white", width: "100%", margin: "auto", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+                <form onSubmit={submitHandler} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                    
+                    <div style={{ width: "100px", position: "relative", margin: "auto", display: "flex", justifyContent: "center" }}>
+                        <Image src={profileImage} roundedCircle style={{ width: "100px", height: "100px"}} />
+                        <div style={{ position: "absolute", bottom: "0", right: "0", width: "32px", height: "32px", lineHeight: "30px", textAlign: "center", overflow: "hidden" }}>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                style={{ position: "absolute", transform: "scale(2)", opacity: "0" }}
+                                onChange={handleImageChange}
+                            />
+                            <i style={{ color: "black",fontSize:"larger"}}><MdAddAPhoto /></i>
+                        </div>
                     </div>
-                </div>
-                
-                <label style={{width:"100%",color:"gray"}}>Your Name</label>
-                <input
-                    type='text'
-                    name='name'
-                    className='border border-gray'
-                    placeholder=""
-                    onChange={changeHandler}
-                    value={formData.name}
-                    style={{ border: "1px solid #0871FF", width: "300px", padding: "10px", borderRadius: "10px" ,marginTop:"10px"}}
-                />
-                {err.name && <p className="text-danger">{err.name}</p>}
-                <br />
-                <label style={{width:"100%",color:"gray"}}>Email</label>
-                <input
-                    type='email'
-                    name='email'
-                    className='border border-gray'
-                    placeholder=""
-                    onChange={changeHandler}
-                    value={formData.email}
-                    style={{ border: "1px solid #0871FF", width: "300px",marginTop:"10px", padding: "10px", borderRadius: "10px" }}
-                />
-                {err.email && <p className="text-danger">{err.email}</p>}
-                <br />
-                <label style={{width:"100%",float:"left",color:"gray"}}>Password</label>
-                <input
-                    type='password'
-                    name="password"
-                    className='border border-gray'
-                    placeholder=""
-                    onChange={changeHandler}
-                    value={formData.password}
-                    style={{ border: "1px solid #0871FF", width: "300px", padding: "10px", borderRadius: "10px" }}
-                />
-                <a href=""style={{width:"100%",display:"flex",justifyContent:"end",textDecoration:"none"}}>Reset Password</a>
-                {err.password && <p className="text-danger">{err.password}</p>}
-                <button type="submit" style={{ backgroundColor: "#0871FF",marginTop:"10px", color: "white", border: "1px solid #0871FF", padding: "10px", width: "100px", borderRadius: "10px", fontWeight: "bold", margin: "5px auto", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
-                    Save
-                </button>
-            </form>
-        </div>
+                    
+                    <label style={{width:"100%",color:"gray"}}>Your Name</label>
+                    <input
+                        type='text'
+                        name='name'
+                        className='border border-gray'
+                        placeholder=""
+                        onChange={changeHandler}
+                        value={formData.name}
+                        style={{ border: "1px solid #0871FF", width: "300px", padding: "10px", borderRadius: "10px" ,marginTop:"10px"}}
+                    />
+                    {err.name && <p className="text-danger">{err.name}</p>}
+                    <br />
+                    <label style={{width:"100%",color:"gray"}}>Email</label>
+                    <input
+                        type='email'
+                        name='email'
+                        className='border border-gray'
+                        placeholder=""
+                        onChange={changeHandler}
+                        value={formData.email}
+                        style={{ border: "1px solid #0871FF", width: "300px",marginTop:"10px", padding: "10px", borderRadius: "10px" }}
+                    />
+                    {err.email && <p className="text-danger">{err.email}</p>}
+                    <br />
+                    <label style={{width:"100%",float:"left",color:"gray"}}>Password</label>
+                    <input
+                        type='password'
+                        name="password"
+                        className='border border-gray'
+                        placeholder=""
+                        onChange={changeHandler}
+                        value={formData.password}
+                        style={{ border: "1px solid #0871FF", width: "300px", padding: "10px", borderRadius: "10px" }}
+                    />
+                    {err.password && <p className="text-danger">{err.password}</p>}
+                    <br />
+                    <label style={{width:"100%",float:"left",color:"gray"}}>Confirm Password</label>
+                    <input
+                        type='password'
+                        name="password_confirmation"
+                        className='border border-gray'
+                        placeholder=""
+                        onChange={changeHandler}
+                        value={formData.password_confirmation}
+                        style={{ border: "1px solid #0871FF", width: "300px", padding: "10px", borderRadius: "10px" }}
+                    />
+                    {err.password_confirmation && <p className="text-danger">{err.password_confirmation}</p>}
+                    <button type="submit" style={{ backgroundColor: "#0871FF",marginTop:"10px", color: "white", border: "1px solid #0871FF", padding: "10px", width: "100px", borderRadius: "10px", fontWeight: "bold", margin: "5px auto", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
+                        Save
+                    </button>
+                </form>
+            </div>
         </>
     );
 }

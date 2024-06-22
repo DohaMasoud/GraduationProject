@@ -63,7 +63,7 @@ function Categorydata({ key2, title, price, rating, desc,img ,favorite,token }) 
         }
       };
     return (
-        <Card className="card-container">
+        <Card className="card-container" style={{width:"fit-content"}}>
             <div className="card-img-container">
                 <Card.Img variant="top" src={img} className="card-img" />
                 <div className="card-overlay">
