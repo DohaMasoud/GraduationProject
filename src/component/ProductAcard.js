@@ -3,7 +3,6 @@ import { Pie, Bar, Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
 import axios from 'axios';
 import { ProductContext } from '../context/ProductContext';
-
 ChartJS.register(ArcElement, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
 const ProductAcard = ({ token }) => {
@@ -13,7 +12,7 @@ const ProductAcard = ({ token }) => {
     const { id } = useContext(ProductContext);
     const api_url = `http://127.0.0.1:8000/api/reviews-analysis?product_id=${id}`;
     const api_url1 = `http://127.0.0.1:8000/api/product/${id}`;
-
+   
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -113,6 +112,7 @@ const ProductAcard = ({ token }) => {
             <li>{ratingBeforeFakeFilter} : Rating Before Filter Fake Reviews</li>
             <li>{data.rating_after_fake_filter} : Rating After Filter Fake Reviews</li>
             </ul>
+
             </div>
         </>
     );

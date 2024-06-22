@@ -4,7 +4,6 @@ import Header from '../component/Header.js';
 import Footer from '../component/Footer.js';
 import ProductInfo from "../component/ProductInfo.js";
 import ReviwesInfo from "../component/ReviewsInfo.js";
-import Relatedinfo from "../component/Relatedinfo.js";
 import Likedinfo from "../component/Likedinfo.js";
 function Product({token}){
     return(
@@ -23,10 +22,6 @@ function Product({token}){
         </div>
        </div>
        <div style={{display:"grid",gridTemplateColumns:`${100/5}$`}}>
-       <div className="row  bg-white m-3 p-1 rounded border">
-        <p>Related Product</p>
-       <Relatedinfo/>
-       </div>
         </div>
         <Footer/>
         </>

@@ -4,7 +4,13 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate, NavLink } from "react-router-dom";
 import Swal from "sweetalert2";
+import { FaRegEyeSlash } from "react-icons/fa";
 function SignIn({setToken,setid}) {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const toggleShowPassword = () => {
+    setShowPassword((prevState) => !prevState);
+  };
   const initalFormData = {
     email: "",
     password: "",
@@ -106,23 +112,30 @@ function SignIn({setToken,setid}) {
               {err.email ? err.email : "Your email should contain'@'"}
             </Form.Text>
           </Form.Group>
-          <Form.Group>
-            <Form.Control
-              type="password"
-              id="inputPassword5"
-              name="password"
-              className="border border-gray"
-              placeholder="Enter password"
-              onChange={changeHandler}
-              value={formData.password}
-              style={{ margin: "1px auto", width: "45%" }}
-            />
-            <Form.Text
-              className={err.password ? "text-danger mx-2" : "text-muted"}
-            >
-              {err.password ? err.password : "strong password"}
-            </Form.Text>
-          </Form.Group>
+          <Form.Group style={{ position: "relative", width: "45%", margin: "1px auto" }}>
+          <Form.Control
+            type={showPassword ? "text" : "password"}
+            id="inputPassword5"
+            name="password"
+            className="border border-gray"
+            placeholder="Enter password"
+            onChange={changeHandler}
+            value={formData.password}
+            style={{ width: "100%", paddingRight: "30px" }}
+          />
+          <FaRegEyeSlash 
+            onClick={toggleShowPassword}
+            style={{
+              position: "absolute",
+              right: "10px",
+              top: "15%",
+              cursor: "pointer",
+            }}
+          />
+          <Form.Text className={err.password ? "text-danger mx-2" : "text-muted"}>
+            {err.password ? err.password : "strong password"}
+          </Form.Text>
+        </Form.Group>
           <Button
             className="w-25"
             style={{
@@ -147,7 +160,7 @@ function SignIn({setToken,setid}) {
           >
             <Image src="asset/google.png" style={{ width: "30px" }} />
             <a
-              href="http://127.0.0.1:8000/api/auth/google"
+              href="http://127.0.0.1:8000/api/auth/google-response"
               style={{ textDecoration: "none", color: "black" }}
             >
               sign in with google

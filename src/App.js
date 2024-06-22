@@ -57,7 +57,7 @@ function App() {
           <Route path="/Product" element={<Product token={token}/>}></Route>
           <Route path="/Categories" element={<Categories  token={token}/>}></Route>
           <Route path="/Profiledata" element={<Profiledata  token={token}/>}></Route>
-          <Route path="/Resetpassdata" element={<Resetpassdata  token={token}/>}></Route>
+\          <Route path="/Resetpassdata" element={<Resetpassdata  token={token}/>}></Route>
         </Routes>
       )}
     </>

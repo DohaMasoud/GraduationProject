@@ -24,7 +24,8 @@ function Home({ token }) {
             className="d-block"
             src="asset/slid2.jpg"
             alt="Second slide"
-          />  
+          />
+          
         </Carousel.Item>
         <Carousel.Item>
           <img

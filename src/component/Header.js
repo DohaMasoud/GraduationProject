@@ -29,6 +29,7 @@ function Header({token}) {
     handleSearch (query);
   };
   const handleSearch = async (query) => {
+    navigate("/Spinner");
     setLoading(true);
     try {
       // const token = "12|Np1zbZGbaOZNnLcR4HIdBVn3aE9i8QSsFHpjkAra6e40b604"; // Define the token here
@@ -38,10 +39,8 @@ function Header({token}) {
         },
       });
       IdHandler(response.data.data.product.id);
-      navigate("/Product")
-       // You can process the response data here
-      // You can process the response data here
-    } catch (error) {
+      navigate("/Product");
+   } catch (error) {
       console.error('There was an error fetching the data:', error);
     } finally {
       setLoading(false);

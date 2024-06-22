@@ -2,8 +2,15 @@ import React, { useState, useEffect } from "react";
 import Image from 'react-bootstrap/Image';
 import { MdAddAPhoto } from "react-icons/md";
 import axios from 'axios';
+import { FaRegEyeSlash } from "react-icons/fa";
 
 function Profiledata({ token, id }) {
+    const [showPassword, setShowPassword] = useState(false);
+
+    const toggleShowPassword = () => {
+      setShowPassword((prevState) => !prevState);
+    };
+
     const initFormData = {
         name: "",
         email: "",
@@ -30,12 +37,12 @@ function Profiledata({ token, id }) {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                const user = response.data.data; // Assuming the data is nested under `data.data`
+                const user = response.data.data.user; 
                 setFormData({
                     name: user.name,
                     email: user.email,
-                    password: "", // Leave password empty initially
-                    password_confirmation: "", // Leave password confirmation empty initially
+                    password: "",
+                    password_confirmation: "", 
                 });
                 if (user.profileImage) {
                     setProfileImage(user.profileImage);
@@ -183,26 +190,44 @@ function Profiledata({ token, id }) {
                     <br />
                     <label style={{width:"100%",float:"left",color:"gray"}}>Password</label>
                     <input
-                        type='password'
+                        type={showPassword ? "text" : "password"}
                         name="password"
                         className='border border-gray'
                         placeholder=""
                         onChange={changeHandler}
                         value={formData.password}
                         style={{ border: "1px solid #0871FF", width: "300px", padding: "10px", borderRadius: "10px" }}
-                    />
+                    /><FaRegEyeSlash 
+                    onClick={toggleShowPassword}
+                    style={{
+                      position: "relative",
+                      position: "relative",
+                      cursor: "pointer",
+                         top: "-33px",
+                         right: "-129px",
+                    }}
+                  />
                     {err.password && <p className="text-danger">{err.password}</p>}
                     <br />
                     <label style={{width:"100%",float:"left",color:"gray"}}>Confirm Password</label>
                     <input
-                        type='password'
+                        type={showPassword ? "text" : "password"}
                         name="password_confirmation"
                         className='border border-gray'
                         placeholder=""
                         onChange={changeHandler}
                         value={formData.password_confirmation}
                         style={{ border: "1px solid #0871FF", width: "300px", padding: "10px", borderRadius: "10px" }}
-                    />
+                   /><FaRegEyeSlash 
+                   onClick={toggleShowPassword}
+                   style={{
+                     position: "relative",
+                     cursor: "pointer",
+                        top: "-33px",
+                        right: "-129px",
+                   }}
+                 />
+                  
                     {err.password_confirmation && <p className="text-danger">{err.password_confirmation}</p>}
                     <button type="submit" style={{ backgroundColor: "#0871FF",marginTop:"10px", color: "white", border: "1px solid #0871FF", padding: "10px", width: "100px", borderRadius: "10px", fontWeight: "bold", margin: "5px auto", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
                         Save

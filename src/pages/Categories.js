@@ -15,7 +15,7 @@ function Categories({ token }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [activeBrand, setActiveBrand] = useState(null);
   const itemsPerPage = 10;
-
+  
   const brands_api_url = "http://127.0.0.1:8000/api/brand";
   const products_api_url = "http://127.0.0.1:8000/api/product";
   const brands_products_api_url = "http://127.0.0.1:8000/api/brand-products?brand_id=";
@@ -89,7 +89,11 @@ function Categories({ token }) {
         </div>
         <div className="product-grid1">
           {loading ? (
-            <p>Loading...</p>
+            <div style={{display:"flex",alignItems:"center",justifyContent:"center",width:"588px"}}>
+              <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+            </div>
+            </div>
           ) : (
             currentItems.map((product) => (
               <Categorydata

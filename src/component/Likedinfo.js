@@ -1,7 +1,6 @@
 import React from "react";
 import { useEffect, useState} from "react";
 import Liked from "./Liked.js";
-import Related from "./Related.js";
 export default function Likedinfo({token}){
   const [data,setdata]=useState([]);
   const fetchUserData = () => {
