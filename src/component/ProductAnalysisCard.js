@@ -1,10 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext ,useState} from "react";
 import { FaHeart } from "react-icons/fa";
 import {ProductContext} from"../context/ProductContext";
 
 import axios from 'axios';
-function ProductAnalysisCard({key2,title,price,rating,brand,total_reviews,img,token}){
-  const {IdHandler}=useContext(ProductContext);
+function ProductAnalysisCard({key2,title,desc,price,brand,img,token, summN,summP,rating}){
+  const [isExpanded, setIsExpanded] = useState(false);
+  const getTruncatedText = (text, limit) => {
+    if (text.length <= limit) return text;
+    return text.substring(0, limit) + '...';
+  };
+
+  const descriptionLimit = 200;
+  const toggleExpand = () => setIsExpanded(!isExpanded);
   const handleAddToFavorites = async () => {
     try {
       const favorites_url = 'http://127.0.0.1:8000/api/favourites';
@@ -24,21 +31,6 @@ function ProductAnalysisCard({key2,title,price,rating,brand,total_reviews,img,to
             &#9733; 
           </span>
         );
-      };
-      const SmallImg = ({imgs}) => {
-       if(imgs.length!=1){
-        return (
-          <div className="row mt-3">
-            {imgs.map((imgs, index) => (
-              <img className="bg-image border rounded mx-1 col"  style={{paddingLeft:'0px',paddingRight:"0px"}} key={index} src={imgs} alt={`Image ${index + 1}`} />
-            ))}
-          </div>
-        );
-       }else{
-        return(
-            <></>
-        );
-       }
       };
       const Rating = ({ rating }) => {
         const filledStars = Math.round(rating);
@@ -68,23 +60,33 @@ function ProductAnalysisCard({key2,title,price,rating,brand,total_reviews,img,to
               </div>
               <div className="col-md-6 col-lg-6 col-xl-6">
                 <h5>{title}</h5>
-                  <div className="text-danger mb-1 me-2">
+                <div className="text-danger mb-1 me-2">
                     <Rating rating={rating}/>
                     <span className="mx-2">({rating})</span>
                     <span className="text-muted"> • </span>
-                    <span className="text-muted">{total_reviews}</span>
-                    <span className="mx-0 text-muted">reviews</span>
-                    <span className="text-muted"> • </span>
                     <span className="mx-0 text-muted">{brand}</span>
                   </div>
-                  <div>
-  
-                </div>
+                <p className="mb-4 mb-md-0">
+                      <p>
+                        {isExpanded ? desc : getTruncatedText(desc, descriptionLimit)}
+                      </p>
+                      <span className="text-primary" onClick={toggleExpand} style={{ cursor: 'pointer' }}>
+                        {isExpanded ? 'Read Less' : 'Read More'}
+                      </span>
+                    </p>
+                  <hr />
+                  <div style={{ marginTop: "-10px" }}>
+                    <p style={{fontWeight:"bolder"}}>Reviews Overview:</p><br />
+                    <ul style={{marginTop:"-35px"}}>
+                    <li><span className="text-primary">Positive Overview:</span> {summP}</li><br />
+                    <li style={{marginTop:"-10px"}}><span className="text-primary">Negative Overview:</span> {summN}</li><br />
+                    </ul>
+                  </div>
               </div>
               <div className="col-md-6 col-lg-3 col-xl-3 border-sm-start-none " style={{height:"fit-content",padding:"10px"}}>
                 <div className="border rounded " style={{height:"fit-content",padding:"10px"}}>
                 <div className="d-flex flex-row align-items-center mb-1">
-                  <span>${price}</span>
+                  <span style={{fontWeight:"bolder"}}>{price} EG</span>
                 </div>
                 <h6 className="text-success">Free shipping</h6>
                 </div>

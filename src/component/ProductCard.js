@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import axios from 'axios';
 import './styles.css'; // Make sure to import the custom CSS
 
-function ProductCard({ key2, desc, title, total_reviews, seller_name, price, discount, rating, stock, brand, category, img ,token }) {
+function ProductCard({ key2, desc, title, total_reviews, seller_name, price, rating, brand, img ,token }) {
   const { IdHandler } = useContext(ProductContext); // Remove 'id' as it is not used directly
 
   const [isExpanded, setIsExpanded] = useState(false);
@@ -90,7 +90,7 @@ function ProductCard({ key2, desc, title, total_reviews, seller_name, price, dis
                 <div className="col-md-6 col-lg-3 col-xl-3 border-sm-start-none" style={{ height: "fit-content", padding: "10px" }}>
                   <div className="border rounded" style={{ height: "fit-content", padding: "10px" }}>
                     <div className="d-flex flex-row align-items-center mb-1">
-                      <span>${price}</span>
+                      <span style={{fontWeight:"bolder"}}>{price} EG</span>
                     </div>
                     <h6 className="text-success">Free shipping</h6>
                     <div className="d-flex flex-column mt-4">
