@@ -48,7 +48,7 @@ function Home({ token }) {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    });
+    })
     setRecommended(response.data.data.products);
   };
 

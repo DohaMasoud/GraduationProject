@@ -179,7 +179,8 @@ function SignUp() {
           >
             <Image src="asset/google.png" style={{ width: "30px" }} />
             <a
-              href="http://127.0.0.1:8000/api/auth/google-response"
+              href="http://127.0.0.1:8000/api/auth/google
+"
               style={{ textDecoration: "none", color: "black" }}
             >
               sign up with google

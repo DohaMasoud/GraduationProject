@@ -14,6 +14,7 @@ import Categories from "./pages/Categories.js";
 import ProductAnalysis from "./pages/ProductAnalysis.js";
 import Profiledata from "./component/Profiledata.js";
 import Resetpassdata from "./component/Resetpassdata.js";
+import Spinner from "./component/Spinner.js"
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token')); 
   const [id,setid] = useState(localStorage.getItem('id')); 
@@ -38,6 +39,8 @@ function App() {
           <Route path="/Categories" element={<Categories token={token} />}></Route>
           <Route path="/Profiledata" element={<Profiledata token={token}/>}></Route>
           <Route path="/Resetpassdata" element={<Resetpassdata token={token}/>}></Route>
+          <Route path="/Spinner" element={<Spinner token={token}/>}></Route>
+
         </Routes>
       ) : (
         <Routes>
@@ -57,7 +60,9 @@ function App() {
           <Route path="/Product" element={<Product token={token}/>}></Route>
           <Route path="/Categories" element={<Categories  token={token}/>}></Route>
           <Route path="/Profiledata" element={<Profiledata  token={token}/>}></Route>
-\          <Route path="/Resetpassdata" element={<Resetpassdata  token={token}/>}></Route>
+          <Route path="/Resetpassdata" element={<Resetpassdata  token={token}/>}></Route>
+           <Route path="/Spinner" element={<Spinner token={token}/>}></Route>
+
         </Routes>
       )}
     </>
