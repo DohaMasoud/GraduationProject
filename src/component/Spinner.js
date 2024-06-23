@@ -12,6 +12,7 @@ export default function Spinner(){
             <span class="visually-hidden">Loading...</span>
             </div>
             </div>
+            <div style={{height:"250px"}}></div>
             <Footer/>
         </>
     )

@@ -64,7 +64,7 @@ function Home({ token }) {
   return (
     <>
       <div className="fixed-top">
-        <Header />
+      <Header token={token} />
         <Nav />
       </div>
       <div className="content " style={{marginTop:"127px"}}>
@@ -88,7 +88,7 @@ function Home({ token }) {
                     />
                   );
                 }
-              })};
+              })}
           </div>
         </Container>
       </div>

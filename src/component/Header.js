@@ -29,8 +29,8 @@ function Header({token}) {
     handleSearch (query);
   };
   const handleSearch = async (query) => {
-    navigate("/Spinner");
     setLoading(true);
+    navigate("/Spinner");
     try {
       // const token = "12|Np1zbZGbaOZNnLcR4HIdBVn3aE9i8QSsFHpjkAra6e40b604"; // Define the token here
       const response = await axios.get(`http://127.0.0.1:8000/api/url-feach?url=${query}`, {
