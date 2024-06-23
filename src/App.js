@@ -6,8 +6,8 @@ import SignIn from "./pages/SignIn.js";
 import Contact from "./pages/Contact.js";
 import Favorites from "./pages/Favorites.js";
 import About from "./pages/About.js";
-import Setting from "./pages/Setting.js";
 import Product from "./pages/Product.js";
+import Profile from "./pages/profile.js";
 import Home from "./pages/Home.js";
 import { Route, Routes } from "react-router-dom";
 import Categories from "./pages/Categories.js";
@@ -33,11 +33,10 @@ function App() {
           <Route path="/Contact" element={<Contact token={token}/>}></Route>
           <Route path="/Favorites" element={<Favorites token={token}/>}></Route>
           <Route path="/About" element={<About token={token}/>}></Route>
-          <Route path="/Setting" element={<Setting token={token} id={id}/>}></Route>
           <Route path="/Product" element={<Product token={token} />}></Route>
           <Route path="/ProductAnalysis" element={<ProductAnalysis token={token}/>}></Route>
           <Route path="/Categories" element={<Categories token={token} />}></Route>
-          <Route path="/Profiledata" element={<Profiledata token={token}/>}></Route>
+          <Route path="/Profile" element={<Profile token={token} id={id}/>}></Route>
           <Route path="/Resetpassdata" element={<Resetpassdata token={token}/>}></Route>
           <Route path="/Spinner" element={<Spinner token={token}/>}></Route>
 
@@ -55,11 +54,10 @@ function App() {
           <Route path="/Contact" element={<Contact token={token} />}></Route>
           <Route path="/Favorites" element={<Favorites token={token}/>}></Route>
           <Route path="/About" element={<About token={token}/>}></Route>
-          <Route path="/Setting" element={<Setting token={token} id={id} />}></Route>
           <Route path="/ProductAnalysis" element={<ProductAnalysis  token={token}/>}></Route>
           <Route path="/Product" element={<Product token={token}/>}></Route>
           <Route path="/Categories" element={<Categories  token={token}/>}></Route>
-          <Route path="/Profiledata" element={<Profiledata  token={token}/>}></Route>
+          <Route path="/Profile" element={<Profile  token={token} id={id}/>}></Route>
           <Route path="/Resetpassdata" element={<Resetpassdata  token={token}/>}></Route>
            <Route path="/Spinner" element={<Spinner token={token}/>}></Route>
 

@@ -3,12 +3,12 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { IoPersonSharp } from "react-icons/io5";
 import { useNavigate, NavLink } from "react-router-dom";
 import React, { useState,useContext } from 'react';  // Added useState import
 import Image from 'react-bootstrap/Image';
-import { IoSettingsSharp } from "react-icons/io5";
 import { FaHeart } from "react-icons/fa6";
-import { CgProfile } from "react-icons/cg";
+import { IoIosLogOut } from "react-icons/io";
 import { ProductContext } from '../context/ProductContext';
 import axios from "axios";
 import './Header.css';
@@ -19,6 +19,28 @@ function Header({token}) {
 
   let navigate = useNavigate();
 
+  async function Logout() {
+      try {
+          const response = await fetch('http://127.0.0.1:8000/api/auth/logout', {
+              method: 'GET',
+              headers: {
+                  'Authorization': `Bearer ${localStorage.getItem('token')}`
+              }
+          });
+
+          if (response.ok) {
+              localStorage.removeItem('token');
+              alert('Logged out successfully!');
+              navigate("/SignIn");
+          } else {
+              console.error('Logout failed:', response.statusText);
+              alert('Failed to log out. Please try again.');
+          }
+      } catch (error) {
+          console.error('An error occurred:', error);
+          alert('An error occurred. Please try again.');
+      }
+  }
   const handleInputChange = (event) => {
     setQuery(event.target.value);
   };
@@ -75,14 +97,19 @@ function Header({token}) {
           >
             
             <ul>
-              <NavLink to="/Setting" className="nav-link1">
-                <IoSettingsSharp /><br />setting
+              <NavLink to="/Profile" className="nav-link1">
+              <IoPersonSharp /><br />profile
               </NavLink>
             </ul>
             <ul>
               <NavLink to='/Favorites' className="nav-link1" style={{ textDecorationLine: "none" }}>
                 <FaHeart /><br />favorites
               </NavLink>
+            </ul>
+            <ul style={{marginLeft:"260px"}}>
+            <NavLink to='#' className="nav-link1" style={{ textDecorationLine: "none" ,color:"red" }} onClick={Logout}>
+            <IoIosLogOut style={{fontSize:"25px"}} /><br/>log out
+            </NavLink>
             </ul>
           </Nav>
         </Navbar.Collapse>

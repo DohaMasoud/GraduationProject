@@ -147,8 +147,8 @@ function Profiledata({ token, id }) {
 
     return (
         <>
-            <h3 style={{ color: "#0871FF", fontSize: "30px", padding: "20px" }}>Edit Your Profile</h3>
-            <div className="container" style={{ backgroundColor: "white", width: "100%", margin: "auto", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+            <h3 style={{ color: "#0871FF", fontSize: "30px", padding: "20px",margin:"140px 0px 0px 60px" }}>Edit Your Profile</h3>
+            <div className="container" style={{ backgroundColor: "white", margin: "auto", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" ,borderRadius:"50px",padding:"30px",  border: "1px solid #cccbcb"}}>
                 <form onSubmit={submitHandler} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                     
                     <div style={{ width: "100px", position: "relative", margin: "auto", display: "flex", justifyContent: "center" }}>

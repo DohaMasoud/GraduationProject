@@ -5,7 +5,7 @@ import Footer from '../component/Footer.js';
 import Profiledata from "../component/Profiledata.js";
 
 
-function Profile({token}){
+function Profile({token,id}){
     
     return(
         <>
@@ -13,7 +13,7 @@ function Profile({token}){
      <Header token={token}/>
        <Nav/>
      </div>
-        <Profiledata token={token}/>
+        <Profiledata token={token} id={id}/>
         <Footer/>
         </>
     );
