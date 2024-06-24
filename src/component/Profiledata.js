@@ -3,6 +3,7 @@ import Image from 'react-bootstrap/Image';
 import { MdAddAPhoto } from "react-icons/md";
 import axios from 'axios';
 import { FaRegEyeSlash } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 function Profiledata({ token, id }) {
     const [showPassword, setShowPassword] = useState(false);
@@ -135,7 +136,9 @@ function Profiledata({ token, id }) {
                     },
                 });
                 setFormData({ ...initFormData });
-                alert("Profile updated successfully!");
+                Swal.fire({
+                    text: "Profile updated successfully!",
+                  });
             } catch (error) {
                 console.error('There was an error updating the data:', error);
                 alert("Error updating profile.");

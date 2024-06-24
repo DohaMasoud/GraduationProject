@@ -3,6 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import Swal from "sweetalert2";
 import { IoPersonSharp } from "react-icons/io5";
 import { useNavigate, NavLink } from "react-router-dom";
 import React, { useState,useContext } from 'react';  // Added useState import
@@ -30,7 +31,9 @@ function Header({token}) {
 
           if (response.ok) {
               localStorage.removeItem('token');
-              alert('Logged out successfully!');
+              Swal.fire({
+                text: "'Logged out successfully!'",
+              });
               navigate("/SignIn");
           } else {
               console.error('Logout failed:', response.statusText);
